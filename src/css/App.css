@@ -1,0 +1,106 @@
+/* =========================================
+   APP LAYOUT (LEFT SIDEBAR)
+========================================= */
+
+.app-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  padding: 30px 40px;
+  overflow-y: auto;
+  margin-left: 260px;
+  transition: var(--transition);
+  min-height: 100vh;
+}
+
+/* Top Bar / Header inside main content */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.top-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Toggle Theme Button */
+.theme-toggle-btn {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Page Content Wrapper */
+.page-content {
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive Media Queries */
+
+/* Tablet View */
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 220px;
+    padding: 24px;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding: 16px;
+    margin-bottom: 60px;
+  }
+
+  .top-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .top-header h2 {
+    font-size: 1.2rem;
+  }
+}

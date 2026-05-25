@@ -1,0 +1,52 @@
+/* =========================================
+   PROFILE PAGE CSS
+========================================= */
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+.profile-avatar {
+  font-size: 80px;
+  margin-bottom: 15px;
+}
+
+.badge-success {
+  background-color: var(--success-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-group h4 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.info-group p {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+}

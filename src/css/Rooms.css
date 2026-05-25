@@ -1,0 +1,102 @@
+/* =========================================
+   ROOMS PAGE CSS
+========================================= */
+
+.rooms-container .subtitle {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.room-card {
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  border-left: 5px solid transparent; /* Used for color coding */
+}
+
+/* Conditional Colors for Rooms */
+.room-full {
+  border-left-color: var(--danger-color);
+  background-color: rgba(220, 53, 69, 0.05); /* Very light red tint */
+}
+
+.room-vacant {
+  border-left-color: var(--success-color);
+  background-color: rgba(25, 135, 84, 0.05); /* Very light green tint */
+}
+
+.status-badge {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.room-card .mt-2 {
+  margin-top: 15px;
+}
+
+.room-card .w-100 {
+  width: 100%;
+}
+
+/* =========================================
+   POPUP MODAL CSS (Simple Implementation)
+========================================= */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dim background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 400px;
+  background-color: var(--bg-card);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-body p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.text-danger {
+  color: var(--danger-color);
+  font-weight: bold;
+}

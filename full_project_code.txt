@@ -1,0 +1,2977 @@
+--- src\components\ComplaintItem\ComplaintItem.css ---
+.complaint-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.complaint-item:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.15);
+  transform: translateX(6px);
+}
+
+.complaint-info h4 {
+  margin: 0 0 4px 0;
+  color: #f1f5f9;
+  font-size: 16px;
+}
+
+.complaint-info p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.delete-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+
+--- src\components\ComplaintItem\ComplaintItem.jsx ---
+import React from 'react';
+import './ComplaintItem.css';
+
+// ComplaintItem receives complaint object and handleDelete function as props
+function ComplaintItem({ complaint, handleDelete }) {
+  return (
+    <div className="complaint-item">
+      <div className="complaint-info">
+        <h4>⚠️ {complaint.title}</h4>
+        <p>{complaint.description}</p>
+      </div>
+      {/* Event handling — delete button calls handleDelete with complaint ID */}
+      <button onClick={() => handleDelete(complaint.id)} className="delete-btn">
+        🗑️ Delete
+      </button>
+    </div>
+  );
+}
+
+export default ComplaintItem;
+
+
+--- src\components\Navbar\Navbar.css ---
+.navbar {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  color: white;
+  padding: 2rem 1.5rem;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  z-index: 100;
+  border-right: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+.navbar-logo {
+  font-size: 28px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-10deg) scale(1.1); }
+  75% { transform: rotate(10deg) scale(1.1); }
+}
+
+.navbar-brand h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #818cf8, #c084fc, #fb7185);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.navbar-links li {
+  width: 100%;
+}
+
+.navbar-links button {
+  background: none;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 12px 18px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  text-align: left;
+  display: block;
+}
+
+.navbar-links button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(129, 140, 248, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.navbar-links button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.navbar-links button:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-links button.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Responsive: reset to top navbar on small screens */
+@media screen and (max-width: 768px) {
+  .navbar {
+    position: sticky;
+    height: auto;
+    width: 100%;
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+  }
+
+  .navbar-brand {
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+
+  .navbar-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .navbar-links li {
+    width: auto;
+  }
+
+  .navbar-links button {
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+
+--- src\components\Navbar\Navbar.jsx ---
+import React from 'react';
+import './Navbar.css';
+
+// Navbar component receives 'currentPage' and 'setPage' as props from App.jsx
+function Navbar({ currentPage, setPage }) {
+  // Array of navigation items — uses Lists and Keys concept
+  const navItems = [
+    { id: 1, label: '🏠 Home', page: 'home' },
+    { id: 2, label: '🛏️ Rooms', page: 'rooms' },
+    { id: 3, label: '📝 Complaints', page: 'complaints' },
+    { id: 4, label: '🍽️ Menu', page: 'menu' },
+    { id: 5, label: '👨‍💼 Warden', page: 'warden' },
+    { id: 6, label: '📢 Notices', page: 'notices' },
+    { id: 7, label: '🔐 Admin', page: 'admin' },
+  ];
+
+  return (
+    <nav className="navbar">
+      <div className="navbar-brand" onClick={() => setPage('home')}>
+        {/* Logo and title */}
+        <span className="navbar-logo">✨</span>
+        <h2>Hostel Management</h2>
+      </div>
+
+      <ul className="navbar-links">
+        {/* Rendering nav items using map() — Lists and Keys */}
+        {navItems.map((item) => (
+          <li key={item.id}>
+            <button
+              className={currentPage === item.page ? 'active' : ''}
+              onClick={() => setPage(item.page)}
+            >
+              {item.label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+export default Navbar;
+
+
+--- src\components\NoticeItem\NoticeItem.css ---
+.notice-item {
+  background-color: #fff3cd;
+  border-left: 5px solid #ffc107;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+.notice-date {
+  font-size: 12px;
+  color: #856404;
+  font-weight: bold;
+}
+
+.notice-title {
+  margin: 5px 0;
+  color: #856404;
+}
+
+.notice-content {
+  margin: 0;
+  color: #555;
+}
+
+
+--- src\components\NoticeItem\NoticeItem.jsx ---
+import React from 'react';
+import './NoticeItem.css';
+
+function NoticeItem({ notice }) {
+  return (
+    <div className="notice-item">
+      <span className="notice-date">{notice.date}</span>
+      <h3 className="notice-title">{notice.title}</h3>
+      <p className="notice-content">{notice.content}</p>
+    </div>
+  );
+}
+
+export default NoticeItem;
+
+
+--- src\components\ReportCard\ReportCard.css ---
+.report-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 5px solid blue;
+}
+
+.report-card.primary {
+  border-left: 5px solid blue;
+}
+
+.report-card.success {
+  border-left: 5px solid green;
+}
+
+.report-card.warning {
+  border-left: 5px solid orange;
+}
+
+.report-card.danger {
+  border-left: 5px solid red;
+}
+
+.report-card.info {
+  border-left: 5px solid purple;
+}
+
+.report-icon {
+  font-size: 35px;
+  width: 60px;
+  height: 60px;
+  background-color: lightgray;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.report-content h3 {
+  margin: 0;
+  font-size: 28px;
+  color: black;
+}
+
+.report-content p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: gray;
+}
+
+--- src\components\ReportCard\ReportCard.jsx ---
+import React from 'react';
+import './ReportCard.css';
+
+function ReportCard({ title, value, icon, colorClass }) {
+  return (
+    <div className={`report-card glass-card ${colorClass}`}>
+      <div className="report-icon">{icon}</div>
+      <div className="report-content">
+        <h3>{value}</h3>
+        <p>{title}</p>
+      </div>
+    </div>
+  );
+}
+
+export default ReportCard;
+
+
+--- src\components\RoomCard\RoomCard.css ---
+.room-card {
+  border-radius: 16px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.room-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.room-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.room-card:hover::after {
+  opacity: 1;
+}
+
+.room-card:hover {
+  transform: translateY(-8px) scale(1.03);
+}
+
+.room-card.occupied {
+  background: linear-gradient(145deg, #1e1225, #2a1530);
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+.room-card.occupied::before {
+  background: linear-gradient(90deg, #f43f5e, #fb7185);
+}
+
+.room-card.occupied:hover {
+  box-shadow: 0 12px 40px rgba(244, 63, 94, 0.25);
+  border-color: rgba(244, 63, 94, 0.5);
+}
+
+.room-card.vacant {
+  background: linear-gradient(145deg, #0d2818, #132f1e);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.room-card.vacant::before {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.room-card.vacant:hover {
+  box-shadow: 0 12px 40px rgba(34, 197, 94, 0.25);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.room-icon {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.room-card h3 {
+  margin: 0 0 6px 0;
+  color: #f1f5f9;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.room-status {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.room-card.occupied .room-status {
+  color: #fb7185;
+}
+
+.room-card.vacant .room-status {
+  color: #4ade80;
+}
+
+.room-student {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.room-available {
+  color: #4ade80;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4px 0;
+}
+
+.room-tap-hint {
+  display: block;
+  margin-top: 12px;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.room-card:hover .room-tap-hint {
+  color: #94a3b8;
+}
+
+
+--- src\components\RoomCard\RoomCard.jsx ---
+import React from 'react';
+import './RoomCard.css';
+
+// RoomCard component receives 'room' details and 'onClick' handler as props
+function RoomCard({ room, onClick }) {
+  // Using conditional rendering to change the style and text based on occupancy
+  return (
+    <div
+      className={`room-card ${room.isOccupied ? 'occupied' : 'vacant'}`}
+      onClick={onClick}
+    >
+      <div className="room-icon">
+        {room.isOccupied ? '🔴' : '🟢'}
+      </div>
+      <h3>Room {room.number}</h3>
+      <p className="room-status">
+        {room.isOccupied ? 'Occupied' : 'Vacant'}
+      </p>
+      {/* Conditional rendering — show student name or availability */}
+      {room.isOccupied ? (
+        <p className="room-student">👤 {room.studentName}</p>
+      ) : (
+        <p className="room-available">Available</p>
+      )}
+      <span className="room-tap-hint">Tap for details →</span>
+    </div>
+  );
+}
+
+export default RoomCard;
+
+
+--- src\components\StudentCard\StudentCard.css ---
+.student-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+}
+
+.student-avatar {
+  font-size: 40px;
+  background-color: lightblue;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-info h3 {
+  margin: 0;
+  margin-bottom: 8px;
+  color: blue;
+}
+
+.student-info p {
+  margin: 5px 0;
+  color: gray;
+  font-size: 15px;
+}
+
+--- src\components\StudentCard\StudentCard.jsx ---
+import React from 'react';
+import './StudentCard.css';
+
+function StudentCard({ student }) {
+  return (
+    <div className="student-card glass-card">
+      <div className="student-avatar">👤</div>
+      <div className="student-info">
+        <h3>{student.name}</h3>
+        <p><strong>Roll No:</strong> {student.rollNumber}</p>
+        <p><strong>Phone:</strong> {student.phone}</p>
+        <p><strong>Room:</strong> {student.room}</p>
+      </div>
+    </div>
+  );
+}
+
+export default StudentCard;
+
+
+--- src\components\WardenTable\WardenTable.css ---
+.warden-table-wrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+.warden-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.warden-table thead {
+  background: linear-gradient(135deg, #1e293b, #334155);
+}
+
+.warden-table th {
+  padding: 14px 20px;
+  text-align: left;
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.warden-table td {
+  padding: 14px 20px;
+  color: #334155;
+  font-size: 15px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.warden-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.warden-table tbody tr:hover {
+  background: #f8fafc;
+  transform: scale(1.005);
+}
+
+.warden-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Warden name with avatar */
+.warden-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.warden-avatar {
+  font-size: 20px;
+}
+
+/* Block badge */
+.block-badge {
+  background: #ede9fe;
+  color: #7c3aed;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Shift badges */
+.shift-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.shift-day {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.shift-night {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Call button */
+.call-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.call-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+
+--- src\components\WardenTable\WardenTable.jsx ---
+import React from 'react';
+import './WardenTable.css';
+
+// WardenTable component receives wardens array as props — Component Reusability
+function WardenTable({ wardens }) {
+  return (
+    <div className="warden-table-wrapper">
+      <table className="warden-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Block</th>
+            <th>Shift</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Rendering table rows using map() — Lists and Keys */}
+          {wardens.map((warden) => (
+            <tr key={warden.id}>
+              <td className="warden-name">
+                <span className="warden-avatar">👨‍💼</span>
+                {warden.name}
+              </td>
+              <td>{warden.phone}</td>
+              <td>
+                <span className="block-badge">{warden.block}</span>
+              </td>
+              <td>
+                <span className={`shift-badge ${warden.shift === 'Day' ? 'shift-day' : 'shift-night'}`}>
+                  {warden.shift === 'Day' ? '☀️' : '🌙'} {warden.shift}
+                </span>
+              </td>
+              <td>
+                {/* Simple Call button — Event Handling */}
+                <a href={`tel:${warden.phone}`} className="call-btn">
+                  📞 Call
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default WardenTable;
+
+
+--- src\pages\AddStudent\AddStudent.css ---
+.add-student-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.student-form {
+  margin-bottom: 3rem;
+}
+
+.student-form h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+.mt-1 {
+  margin-top: 1.5rem;
+}
+
+.students-list-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+
+--- src\pages\AddStudent\AddStudent.jsx ---
+import React, { useState } from 'react';
+import StudentCard from '../../components/StudentCard/StudentCard';
+import './AddStudent.css';
+
+function AddStudent({ students, setStudents, setPage }) {
+  const [name, setName] = useState('');
+  const [rollNumber, setRollNumber] = useState('');
+  const [phone, setPhone] = useState('');
+  const [room, setRoom] = useState('');
+
+  const handleAddStudent = (e) => {
+    e.preventDefault();
+    if (!name || !rollNumber || !phone || !room) {
+      alert('Please fill out all fields');
+      return;
+    }
+
+    const newStudent = {
+      id: Date.now(),
+      name,
+      rollNumber,
+      phone,
+      room,
+    };
+
+    setStudents([...students, newStudent]);
+    
+    setName('');
+    setRollNumber('');
+    setPhone('');
+    setRoom('');
+  };
+
+  return (
+    <div className="add-student-container">
+      <div className="page-header">
+        <button className="back-btn" onClick={() => setPage('admin')}>← Back to Dashboard</button>
+        <h2 className="page-title">Manage Students</h2>
+        <p className="page-subtitle">Add new students to the hostel</p>
+      </div>
+
+      <form onSubmit={handleAddStudent} className="student-form glass-card">
+        <h3>Add New Student</h3>
+        <div className="form-grid">
+          <div className="form-group">
+            <label>Student Name:</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. John Doe" />
+          </div>
+          <div className="form-group">
+            <label>Roll Number:</label>
+            <input type="text" value={rollNumber} onChange={(e) => setRollNumber(e.target.value)} placeholder="e.g. CS2307" />
+          </div>
+          <div className="form-group">
+            <label>Phone Number:</label>
+            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="e.g. 9876543210" />
+          </div>
+          <div className="form-group">
+            <label>Room Number:</label>
+            <input type="text" value={room} onChange={(e) => setRoom(e.target.value)} placeholder="e.g. 111" />
+          </div>
+        </div>
+        <button type="submit" className="btn-primary w-100 mt-1">➕ Add Student</button>
+      </form>
+
+      <div className="students-list-section">
+        <h3>Current Students ({students.length})</h3>
+        <div className="students-grid">
+          {students.map((student) => (
+            <StudentCard key={student.id} student={student} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AddStudent;
+
+
+--- src\pages\AdminLogin\AdminLogin.css ---
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.login-box {
+  max-width: 400px;
+  width: 100%;
+  padding: 2.5rem;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-icon {
+  font-size: 3rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.login-header h2 {
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.login-header p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.w-100 {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+
+--- src\pages\AdminLogin\AdminLogin.jsx ---
+import React, { useState } from 'react';
+import './AdminLogin.css';
+
+function AdminLogin({ setIsAdminLoggedIn, setPage }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username === 'admin' && password === '1234') {
+      setIsAdminLoggedIn(true);
+      setPage('admin'); // 'admin' page route will show dashboard if logged in
+    } else {
+      setError('Invalid username or password');
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <div className="login-box glass-card">
+        <div className="login-header">
+          <span className="login-icon">🔐</span>
+          <h2>Admin Access</h2>
+          <p>Login to manage the hostel</p>
+        </div>
+
+        {error && <div className="error-message">{error}</div>}
+
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter admin username"
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+            />
+          </div>
+          <button type="submit" className="btn-primary w-100">
+            Login to Dashboard
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default AdminLogin;
+
+
+--- src\pages\Complaints\Complaints.css ---
+.complaints-container {
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease;
+}
+
+.complaints-container h2 {
+  color: #1e293b;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Complaint form */
+.complaint-form {
+  background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+}
+
+/* Complaints header with count */
+.complaints-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.complaints-header h3 {
+  color: #1e293b;
+  font-size: 22px;
+  margin: 0;
+}
+
+.complaints-count {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Empty state */
+.no-complaints {
+  text-align: center;
+  padding: 40px;
+  background: #f0fdf4;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
+}
+
+.no-complaints p {
+  color: #16a34a;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.complaints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+--- src\pages\Complaints\Complaints.jsx ---
+import React, { useState } from 'react';
+import ComplaintItem from '../../components/ComplaintItem/ComplaintItem';
+import './Complaints.css';
+
+// Complaints page — form, list, delete, and total count
+function Complaints({ complaints, setComplaints }) {
+  // useState to manage form inputs
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  // Event handler — form submission
+  const handleAddComplaint = (e) => {
+    e.preventDefault();
+    if (!title || !description) {
+      alert('Please fill out both fields');
+      return;
+    }
+
+    const newComplaint = {
+      id: Date.now(),
+      title: title,
+      description: description,
+    };
+
+    // Update state using spread operator
+    setComplaints([...complaints, newComplaint]);
+
+    // Clear form inputs
+    setTitle('');
+    setDescription('');
+  };
+
+  // Event handler — delete complaint by ID
+  const handleDelete = (id) => {
+    const updatedComplaints = complaints.filter((c) => c.id !== id);
+    setComplaints(updatedComplaints);
+  };
+
+  return (
+    <div className="complaints-container">
+      <div className="page-header">
+        <h2 className="page-title">File a Complaint</h2>
+        <p className="page-subtitle">Submit and manage hostel complaints</p>
+      </div>
+
+      {/* Complaint form — Forms concept */}
+      <form onSubmit={handleAddComplaint} className="complaint-form">
+        <div className="form-group">
+          <label>Complaint Title:</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="e.g., Broken Fan"
+          />
+        </div>
+        <div className="form-group">
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Describe the issue in detail..."
+          ></textarea>
+        </div>
+        <button type="submit" className="submit-btn">➕ Add Complaint</button>
+      </form>
+
+      {/* Total complaints count badge */}
+      <div className="complaints-header">
+        <h3>Recent Complaints</h3>
+        <span className="complaints-count">
+          Total: {complaints.length}
+        </span>
+      </div>
+
+      {/* Conditional Rendering — show message if no complaints */}
+      {complaints.length === 0 ? (
+        <div className="no-complaints">
+          <p>🎉 No complaints filed yet. Everything looks good!</p>
+        </div>
+      ) : (
+        <div className="complaints-list">
+          {/* Lists and Keys — rendering complaint items using map() */}
+          {complaints.map((complaint) => (
+            <ComplaintItem
+              key={complaint.id}
+              complaint={complaint}
+              handleDelete={handleDelete}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Complaints;
+
+
+--- src\pages\Dashboard\Dashboard.css ---
+.dashboard-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  position: relative;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.dashboard-card {
+  text-align: center;
+  cursor: pointer;
+  padding: 2.5rem 1.5rem;
+  border-top: 4px solid transparent;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-primary { border-top-color: var(--primary); }
+.card-success { border-top-color: var(--success); }
+.card-info { border-top-color: var(--info); }
+.card-warning { border-top-color: var(--warning); }
+.card-secondary { border-top-color: var(--secondary); }
+
+.card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-card h3 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+@media screen and (max-width: 768px) {
+  .logout-btn {
+    position: static;
+    margin-top: 1rem;
+  }
+}
+
+
+--- src\pages\Dashboard\Dashboard.jsx ---
+import React from 'react';
+import './Dashboard.css';
+
+function Dashboard({ setPage, handleLogout }) {
+  const adminCards = [
+    { id: 1, title: 'Add Student', icon: '👤', page: 'addStudent', color: 'primary' },
+    { id: 2, title: 'Manage Menu', icon: '🍽️', page: 'manageMenu', color: 'success' },
+    { id: 3, title: 'Rooms Status', icon: '🛏️', page: 'adminRooms', color: 'info' },
+    { id: 4, title: 'Complaints', icon: '📝', page: 'adminComplaints', color: 'warning' },
+    { id: 5, title: 'Reports', icon: '📊', page: 'reports', color: 'secondary' },
+  ];
+
+  return (
+    <div className="dashboard-container">
+      <div className="dashboard-header page-header">
+        <h2 className="page-title">Admin Dashboard</h2>
+        <p className="page-subtitle">Welcome back, Admin. Manage the hostel efficiently.</p>
+        <button className="btn-danger logout-btn" onClick={handleLogout}>
+          Logout 🚪
+        </button>
+      </div>
+
+      <div className="dashboard-grid">
+        {adminCards.map((card) => (
+          <div 
+            key={card.id} 
+            className={`dashboard-card glass-card card-${card.color}`}
+            onClick={() => setPage(card.page)}
+          >
+            <div className="card-icon">{card.icon}</div>
+            <h3>{card.title}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
+
+
+--- src\pages\Home\Home.css ---
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 70px);
+  padding: 30px;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a, #7c3aed);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Floating decorative shapes */
+.home-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.home-shape-1 {
+  width: 300px;
+  height: 300px;
+  background: #60a5fa;
+  top: -80px;
+  left: -80px;
+  animation: floatShape 8s ease-in-out infinite;
+}
+
+.home-shape-2 {
+  width: 200px;
+  height: 200px;
+  background: #a78bfa;
+  bottom: -50px;
+  right: -50px;
+  animation: floatShape 10s ease-in-out infinite reverse;
+}
+
+.home-shape-3 {
+  width: 150px;
+  height: 150px;
+  background: #34d399;
+  top: 50%;
+  right: 15%;
+  animation: floatShape 6s ease-in-out infinite;
+}
+
+/* Welcome box card */
+.welcome-box {
+  background: linear-gradient(145deg, #1e293b, #334155);
+  padding: 50px 45px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.8s ease;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.welcome-box:hover {
+  transform: translateY(-5px);
+  transition: transform 0.4s ease;
+}
+
+/* Logo */
+.logo-wrapper {
+  margin-bottom: 20px;
+}
+
+.home-logo-emoji {
+  font-size: 72px;
+  display: inline-block;
+  animation: pulse 2.5s infinite;
+  filter: drop-shadow(0 8px 20px rgba(96, 165, 250, 0.3));
+}
+
+/* Heading */
+.welcome-box h1 {
+  color: #f8fafc;
+  font-size: 36px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-box p {
+  color: #94a3b8;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Feature badges */
+.feature-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.badge {
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  color: #93c5fd;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Navigation buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-btn {
+  border: none;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-family: inherit;
+}
+
+.home-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+
+/* Button color variants */
+.btn-rooms {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.btn-complaints {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+}
+
+.btn-menu {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.btn-warden {
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+
+.btn-notices {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes floatShape {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-30px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .welcome-box {
+    padding: 30px 20px;
+  }
+
+  .welcome-box h1 {
+    font-size: 26px;
+  }
+
+  .welcome-box p {
+    font-size: 15px;
+  }
+
+  .home-logo-emoji {
+    font-size: 56px;
+  }
+
+  .home-btn {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+}
+
+--- src\pages\Home\Home.jsx ---
+import React from 'react';
+import './Home.css';
+
+// Home component receives setPage as props to navigate to other pages
+function Home({ setPage }) {
+  // Array of quick-access buttons — uses Lists and Keys
+  const quickLinks = [
+    { id: 1, label: '🛏️ View Rooms', page: 'rooms', style: 'btn-rooms' },
+    { id: 2, label: '📝 Complaints', page: 'complaints', style: 'btn-complaints' },
+    { id: 3, label: '🍽️ Mess Menu', page: 'menu', style: 'btn-menu' },
+    { id: 4, label: '👨‍💼 Warden', page: 'warden', style: 'btn-warden' },
+    { id: 5, label: '📢 Notices', page: 'notices', style: 'btn-notices' },
+    { id: 6, label: '🔐 Admin Login', page: 'admin', style: 'btn-warden' },
+  ];
+
+  return (
+    <div className="home-container">
+      {/* Floating decorative shapes for visual appeal */}
+      <div className="home-shape home-shape-1"></div>
+      <div className="home-shape home-shape-2"></div>
+      <div className="home-shape home-shape-3"></div>
+
+      <div className="welcome-box">
+        {/* Logo */}
+        <div className="logo-wrapper">
+          <span className="home-logo-emoji">🏠</span>
+        </div>
+
+        {/* Welcome message */}
+        <h1>Welcome to <span className="highlight">Aurora Hostel</span></h1>
+        <p>Your home away from home. Manage your stay easily and efficiently.</p>
+
+        {/* Feature badges */}
+        <div className="feature-badges">
+          <span className="badge">✅ 50+ Rooms</span>
+          <span className="badge">✅ 24/7 Security</span>
+          <span className="badge">✅ Wi-Fi Enabled</span>
+        </div>
+
+        {/* Navigation buttons — Event Handling + map() */}
+        <div className="action-buttons">
+          {quickLinks.map((link) => (
+            <button
+              key={link.id}
+              className={`home-btn ${link.style}`}
+              onClick={() => setPage(link.page)}
+            >
+              {link.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Home;
+
+--- src\pages\Menu\Menu.css ---
+.menu-container {
+  padding: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+}
+
+.menu-container h2 {
+  color: #0f172a;
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.menu-container>p {
+  color: #64748b;
+  margin-bottom: 28px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Menu cards grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* Card */
+.menu-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  transition: all 0.35s ease;
+}
+
+/* Hover effect */
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(59, 130, 246, 0.12);
+  border-color: #bfdbfe;
+}
+
+/* Header */
+.menu-day-header {
+  background: #ffffff;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.menu-emoji {
+  font-size: 24px;
+  background: #eff6ff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-day-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Meal rows */
+.meal-item {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f8fafc;
+  transition: all 0.25s ease;
+}
+
+.meal-item:last-child {
+  border-bottom: none;
+}
+
+.meal-item:hover {
+  background: #f8fafc;
+}
+
+/* Labels */
+.meal-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+/* Food Name */
+.meal-name {
+  font-size: 15px;
+  color: #0f172a;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Day Selector Styles */
+.day-selector-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.day-btn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.day-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.day-btn.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.selected-day-info {
+  margin-bottom: 24px;
+  text-align: center;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+.selected-day-info h3 {
+  color: #1e293b;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.meal-timings {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.timing-badge {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.no-menu-msg {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  padding: 40px;
+  width: 100%;
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+  .menu-container {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .menu-container h2 {
+    font-size: 26px;
+  }
+
+  .menu-day-header h3 {
+    font-size: 17px;
+  }
+
+  .day-selector-container {
+    gap: 8px;
+  }
+
+  .day-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .meal-timings {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+--- src\pages\Menu\Menu.jsx ---
+import React, { useState } from 'react';
+import './Menu.css';
+
+// Menu page — shows weekly breakfast, lunch, dinner cards
+function Menu({ menuItems, setMenuItems, isAdmin }) {
+  // useState to manage form inputs for Admin
+  const [day, setDay] = useState('');
+  const [breakfast, setBreakfast] = useState('');
+  const [lunch, setLunch] = useState('');
+  const [dinner, setDinner] = useState('');
+
+  // useState for day selector filter
+  const [selectedDay, setSelectedDay] = useState(null);
+
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+  const handleAddMenu = (e) => {
+    e.preventDefault();
+    if (!day || !breakfast || !lunch || !dinner) {
+      alert('Please fill out all fields');
+      return;
+    }
+
+    const newItem = {
+      id: Date.now(),
+      day,
+      emoji: '✨',
+      breakfast,
+      lunch,
+      dinner,
+    };
+
+    setMenuItems([...menuItems, newItem]);
+    
+    // Clear form
+    setDay('');
+    setBreakfast('');
+    setLunch('');
+    setDinner('');
+  };
+
+  const filteredMenu = selectedDay 
+    ? menuItems.filter(item => item.day.toLowerCase() === selectedDay.toLowerCase()) 
+    : menuItems;
+
+  const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+  return (
+    <div className="menu-container">
+      <div className="page-header">
+        <h2 className="page-title">{isAdmin ? 'Manage Mess Menu' : 'Hostel Mess Menu'}</h2>
+        <p className="page-subtitle">Weekly Breakfast, Lunch and Dinner Schedule</p>
+      </div>
+
+      {/* Admin Form */}
+      {isAdmin && (
+        <form onSubmit={handleAddMenu} className="menu-form glass-card">
+          <h3>Add New Menu Item</h3>
+          <div className="form-group">
+            <label>Day:</label>
+            <input type="text" value={day} onChange={(e) => setDay(e.target.value)} placeholder="e.g. Special Sunday" />
+          </div>
+          <div className="form-group">
+            <label>Breakfast:</label>
+            <input type="text" value={breakfast} onChange={(e) => setBreakfast(e.target.value)} placeholder="Breakfast Item" />
+          </div>
+          <div className="form-group">
+            <label>Lunch:</label>
+            <input type="text" value={lunch} onChange={(e) => setLunch(e.target.value)} placeholder="Lunch Item" />
+          </div>
+          <div className="form-group">
+            <label>Dinner:</label>
+            <input type="text" value={dinner} onChange={(e) => setDinner(e.target.value)} placeholder="Dinner Item" />
+          </div>
+          <button type="submit" className="btn-primary">➕ Add Menu</button>
+        </form>
+      )}
+
+      {/* Day Selector */}
+      <div className="day-selector-container">
+        <button 
+          className={`day-btn ${selectedDay === null ? 'active' : ''}`}
+          onClick={() => setSelectedDay(null)}
+        >
+          All Days
+        </button>
+        {daysOfWeek.map(dayName => (
+          <button
+            key={dayName}
+            className={`day-btn ${selectedDay === dayName ? 'active' : ''}`}
+            onClick={() => setSelectedDay(dayName)}
+          >
+            {dayName}
+          </button>
+        ))}
+      </div>
+
+      {selectedDay && (
+        <div className="selected-day-info glass-card">
+          <h3>📅 {currentDate}</h3>
+          <div className="meal-timings">
+            <span className="timing-badge">🌅 Breakfast: 8:00 AM</span>
+            <span className="timing-badge">☀️ Lunch: 1:00 PM</span>
+            <span className="timing-badge">🌙 Dinner: 8:00 PM</span>
+          </div>
+        </div>
+      )}
+
+      {/* Rendering menu cards using map() — Lists and Keys */}
+      <div className="menu-grid">
+        {filteredMenu.map((item) => (
+          <div key={item.id} className="menu-card glass-card">
+            <div className="menu-day-header">
+              <span className="menu-emoji">{item.emoji || '✨'}</span>
+              <h3>{item.day}</h3>
+            </div>
+
+            <div className="meal-item">
+              <span className="meal-label">🌅 Breakfast</span>
+              <span className="meal-name">{item.breakfast}</span>
+            </div>
+
+            <div className="meal-item">
+              <span className="meal-label">☀️ Lunch</span>
+              <span className="meal-name">{item.lunch}</span>
+            </div>
+
+            <div className="meal-item">
+              <span className="meal-label">🌙 Dinner</span>
+              <span className="meal-name">{item.dinner}</span>
+            </div>
+          </div>
+        ))}
+        {filteredMenu.length === 0 && (
+          <div className="no-menu-msg">
+            <p>No menu found for {selectedDay}.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default Menu;
+
+--- src\pages\Notices\Notices.css ---
+.notices-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.notices-container h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 10px;
+}
+
+.notices-list {
+  margin-top: 20px;
+}
+
+
+--- src\pages\Notices\Notices.jsx ---
+import React from 'react';
+import NoticeItem from '../../components/NoticeItem/NoticeItem';
+import './Notices.css';
+
+function Notices() {
+  // Static array of notices
+  const noticesList = [
+    {
+      id: 1,
+      date: '10-Oct-2023',
+      title: 'Hostel Fees Due',
+      content: 'Please pay your hostel fees for the upcoming semester by 25th October.'
+    },
+    {
+      id: 2,
+      date: '12-Oct-2023',
+      title: 'Water Supply Interruption',
+      content: 'There will be no water supply on 15th October from 10 AM to 2 PM due to maintenance.'
+    },
+    {
+      id: 3,
+      date: '14-Oct-2023',
+      title: 'Diwali Celebration',
+      content: 'Join us for Diwali celebrations in the common hall on 24th October at 6 PM.'
+    }
+  ];
+
+  return (
+    <div className="notices-container">
+      <h2>Notice Board</h2>
+      <p>Important announcements for all residents:</p>
+      
+      <div className="notices-list">
+        {noticesList.map(notice => (
+          <NoticeItem key={notice.id} notice={notice} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default Notices;
+
+
+--- src\pages\Reports\Reports.css ---
+.reports-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+
+--- src\pages\Reports\Reports.jsx ---
+import React from 'react';
+import ReportCard from '../../components/ReportCard/ReportCard';
+import './Reports.css';
+
+function Reports({ students, complaints, setPage }) {
+  const totalRooms = 50; // Static value as per requirement
+  const totalStudents = students.length;
+  const occupiedRooms = totalStudents; // Assuming 1 student per room for simplicity
+  const vacantRooms = totalRooms - occupiedRooms;
+  const totalComplaints = complaints.length;
+
+  return (
+    <div className="reports-container">
+      <div className="page-header">
+        <button className="back-btn" onClick={() => setPage('admin')}>← Back to Dashboard</button>
+        <h2 className="page-title">Hostel Reports</h2>
+        <p className="page-subtitle">Statistics and current status of the hostel</p>
+      </div>
+
+      <div className="reports-grid">
+        <ReportCard 
+          title="Total Rooms" 
+          value={totalRooms} 
+          icon="🏢" 
+          colorClass="primary" 
+        />
+        <ReportCard 
+          title="Occupied Rooms" 
+          value={occupiedRooms} 
+          icon="🔴" 
+          colorClass="danger" 
+        />
+        <ReportCard 
+          title="Vacant Rooms" 
+          value={vacantRooms} 
+          icon="🟢" 
+          colorClass="success" 
+        />
+        <ReportCard 
+          title="Total Students" 
+          value={totalStudents} 
+          icon="👥" 
+          colorClass="info" 
+        />
+        <ReportCard 
+          title="Total Complaints" 
+          value={totalComplaints} 
+          icon="📝" 
+          colorClass="warning" 
+        />
+      </div>
+    </div>
+  );
+}
+
+export default Reports;
+
+
+--- src\pages\Rooms\Rooms.css ---
+.rooms-container {
+  padding: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease;
+}
+
+.rooms-container h2 {
+  color: #1e293b;
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.rooms-container > p {
+  color: #64748b;
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+
+/* Room cards grid */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.rooms-grid > div {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.rooms-grid > div:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* ===== MODAL POPUP ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0;
+  width: 420px;
+  max-width: 90%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  animation: popUp 0.4s ease;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.modal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-row:last-child {
+  border-bottom: none;
+}
+
+.modal-label {
+  font-weight: 600;
+  color: #475569;
+  font-size: 14px;
+}
+
+.modal-value {
+  color: #1e293b;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* Fee status colored badges */
+.status-paid {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #d97706;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  padding: 0 25px 25px;
+}
+
+.modal-action-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-book {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.btn-book:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-close {
+  background: linear-gradient(135deg, #64748b, #475569);
+  color: white;
+}
+
+.btn-close:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(100, 116, 139, 0.35);
+}
+
+/* Modal popup animation */
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+--- src\pages\Rooms\Rooms.jsx ---
+import React, { useState } from 'react';
+import RoomCard from '../../components/RoomCard/RoomCard';
+import './Rooms.css';
+
+// Rooms page — shows room cards and a popup modal with details
+function Rooms() {
+  // Array of room data — Lists and Keys
+  const roomsList = [
+    { id: 1, number: '101', isOccupied: true, studentName: 'Rithvik', feeStatus: 'Paid', electricityBill: '₹1200', complaint: 'Fan not working' },
+    { id: 2, number: '102', isOccupied: false, studentName: '', feeStatus: 'N/A', electricityBill: '-', complaint: 'No Complaints' },
+    { id: 3, number: '103', isOccupied: true, studentName: 'Rahul', feeStatus: 'Pending', electricityBill: '₹950', complaint: 'Tap leaking' },
+    { id: 4, number: '104', isOccupied: false, studentName: '', feeStatus: 'N/A', electricityBill: '-', complaint: 'No Complaints' },
+    { id: 5, number: '105', isOccupied: true, studentName: 'Amit', feeStatus: 'Paid', electricityBill: '₹1100', complaint: 'No Complaints' },
+    { id: 6, number: '106', isOccupied: true, studentName: 'Kiran', feeStatus: 'Paid', electricityBill: '₹800', complaint: 'Light not working' },
+    { id: 7, number: '107', isOccupied: false, studentName: '', feeStatus: 'N/A', electricityBill: '-', complaint: 'No Complaints' },
+    { id: 8, number: '108', isOccupied: true, studentName: 'Suresh', feeStatus: 'Pending', electricityBill: '₹1350', complaint: 'AC not cooling' },
+    { id: 9, number: '109', isOccupied: false, studentName: '', feeStatus: 'N/A', electricityBill: '-', complaint: 'No Complaints' },
+    { id: 10, number: '110', isOccupied: true, studentName: 'Varun', feeStatus: 'Paid', electricityBill: '₹1000', complaint: 'No Complaints' },
+  ];
+
+  // useState to track the selected room (null = no modal open)
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
+  // Event handler — open popup
+  const openModal = (room) => {
+    setSelectedRoom(room);
+  };
+
+  // Event handler — close popup
+  const closeModal = () => {
+    setSelectedRoom(null);
+  };
+
+  return (
+    <div className="rooms-container">
+      <div className="page-header">
+        <h2 className="page-title">Hostel Rooms</h2>
+        <p className="page-subtitle">Click any room card to view full details</p>
+      </div>
+
+      {/* Rendering rooms using map() — Lists and Keys */}
+      <div className="rooms-grid">
+        {roomsList.map((room) => (
+          <div key={room.id} onClick={() => openModal(room)}>
+            <RoomCard room={room} />
+          </div>
+        ))}
+      </div>
+
+      {/* Conditional Rendering — show modal only when a room is selected */}
+      {selectedRoom !== null && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>🔑 Room {selectedRoom.number} Details</h3>
+              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+            </div>
+
+            <div className="modal-body">
+              <div className="modal-row">
+                <span className="modal-label">Room Number</span>
+                <span className="modal-value">{selectedRoom.number}</span>
+              </div>
+              <div className="modal-row">
+                <span className="modal-label">Student Name</span>
+                <span className="modal-value">
+                  {selectedRoom.studentName === '' ? 'No Student' : selectedRoom.studentName}
+                </span>
+              </div>
+              <div className="modal-row">
+                <span className="modal-label">Fee Status</span>
+                <span className={`modal-value ${selectedRoom.feeStatus === 'Paid' ? 'status-paid' : selectedRoom.feeStatus === 'Pending' ? 'status-pending' : ''}`}>
+                  {selectedRoom.feeStatus}
+                </span>
+              </div>
+              <div className="modal-row">
+                <span className="modal-label">Electricity Bill</span>
+                <span className="modal-value">{selectedRoom.electricityBill}</span>
+              </div>
+              <div className="modal-row">
+                <span className="modal-label">Complaint Status</span>
+                <span className="modal-value">{selectedRoom.complaint}</span>
+              </div>
+            </div>
+
+            <div className="modal-actions">
+              {!selectedRoom.isOccupied && (
+                <button 
+                  className="modal-action-btn btn-book" 
+                  onClick={() => {
+                    alert('Room Booking Request Sent!');
+                    closeModal();
+                  }}
+                >
+                  Book Room
+                </button>
+              )}
+              <button className="modal-action-btn btn-close" onClick={closeModal}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Rooms;
+
+--- src\pages\Warden\Warden.css ---
+.warden-container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease;
+}
+
+.warden-container h2 {
+  color: #1e293b;
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.warden-container > p {
+  color: #64748b;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* Search box */
+.warden-search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 4px 16px;
+  margin-bottom: 24px;
+  transition: border-color 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.warden-search-box:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.warden-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  font-size: 15px;
+  font-family: inherit;
+  color: #334155;
+  background: transparent;
+}
+
+.warden-search-input::placeholder {
+  color: #94a3b8;
+}
+
+/* No results state */
+.no-results {
+  text-align: center;
+  padding: 40px;
+  background: #fef2f2;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+  margin-bottom: 16px;
+}
+
+.no-results p {
+  color: #dc2626;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Result count */
+.result-count {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+--- src\pages\Warden\Warden.jsx ---
+import React, { useState } from 'react';
+import WardenTable from '../../components/WardenTable/WardenTable';
+import './Warden.css';
+
+// Warden page — shows warden contacts in table with search
+function Warden() {
+  // Array of warden data — Lists and Keys
+  const wardensList = [
+    { id: 1, name: 'Mr. Rajesh Kumar', phone: '9876543210', block: 'Block A', shift: 'Day' },
+    { id: 2, name: 'Mr. Sunil Sharma', phone: '9123456789', block: 'Block B', shift: 'Night' },
+    { id: 3, name: 'Mrs. Priya Reddy', phone: '9988776655', block: 'Block A', shift: 'Night' },
+    { id: 4, name: 'Mr. Venkat Rao', phone: '9876512345', block: 'Block C', shift: 'Day' },
+    { id: 5, name: 'Mrs. Lakshmi Devi', phone: '9001122334', block: 'Block B', shift: 'Day' },
+    { id: 6, name: 'Mr. Anil Verma', phone: '9112233445', block: 'Block C', shift: 'Night' },
+  ];
+
+  // useState for search input
+  const [searchText, setSearchText] = useState('');
+
+  // Filter wardens based on search text (name, block, or shift)
+  const filteredWardens = wardensList.filter((warden) => {
+    const lowerSearch = searchText.toLowerCase();
+    return (
+      warden.name.toLowerCase().includes(lowerSearch) ||
+      warden.block.toLowerCase().includes(lowerSearch) ||
+      warden.shift.toLowerCase().includes(lowerSearch)
+    );
+  });
+
+  return (
+    <div className="warden-container">
+      <h2>👨‍💼 Warden Contacts</h2>
+      <p>Search and contact hostel wardens quickly</p>
+
+      {/* Search input — Forms + useState */}
+      <div className="warden-search-box">
+        <span className="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="Search by name, block, or shift..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="warden-search-input"
+        />
+      </div>
+
+      {/* Conditional Rendering — show message or table */}
+      {filteredWardens.length === 0 ? (
+        <div className="no-results">
+          <p>😕 No wardens found matching "{searchText}"</p>
+        </div>
+      ) : (
+        <WardenTable wardens={filteredWardens} />
+      )}
+
+      {/* Result count */}
+      <p className="result-count">
+        Showing {filteredWardens.length} of {wardensList.length} wardens
+      </p>
+    </div>
+  );
+}
+
+export default Warden;
+
+
+--- src\App.css ---
+.app-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+
+.page-wrapper {
+  animation: pageFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+@keyframes pageFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Common Header Styles */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text-primary), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Primary Button Utility */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.5);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+--- src\App.jsx ---
+import React, { useState } from 'react';
+import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home/Home';
+import Rooms from './pages/Rooms/Rooms';
+import Complaints from './pages/Complaints/Complaints';
+import Menu from './pages/Menu/Menu';
+import AdminLogin from './pages/AdminLogin/AdminLogin';
+import Dashboard from './pages/Dashboard/Dashboard';
+import AddStudent from './pages/AddStudent/AddStudent';
+import Reports from './pages/Reports/Reports';
+import Warden from './pages/Warden/Warden';
+import Notices from './pages/Notices/Notices';
+import './App.css';
+
+// App is the main (root) functional component
+function App() {
+  // useState to manage the current page being displayed
+  const [currentPage, setCurrentPage] = useState('home');
+
+  // useState to track if admin is logged in
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  // useState to store student list (shared between pages)
+  const [students, setStudents] = useState([
+    { id: 1, name: 'Rithvik', rollNumber: 'CS2301', phone: '9876543210', room: '101' },
+    { id: 2, name: 'Rahul', rollNumber: 'CS2302', phone: '9123456789', room: '103' },
+    { id: 3, name: 'Amit', rollNumber: 'CS2303', phone: '9988776655', room: '105' },
+    { id: 4, name: 'Kiran', rollNumber: 'CS2304', phone: '9876512345', room: '106' },
+    { id: 5, name: 'Suresh', rollNumber: 'CS2305', phone: '9001122334', room: '108' },
+    { id: 6, name: 'Varun', rollNumber: 'CS2306', phone: '9112233445', room: '110' },
+  ]);
+
+  // useState to store complaints list (shared between pages)
+  const [complaints, setComplaints] = useState([
+    { id: 1, title: 'No Internet', description: 'Wi-Fi is not working on the 1st floor.' },
+    { id: 2, title: 'Water Leak', description: 'Tap is leaking in room 103.' },
+  ]);
+
+  // useState to store mess menu items (shared between pages)
+  const [menuItems, setMenuItems] = useState([
+    { id: 1, day: 'Monday', breakfast: 'Idli & Chutney', lunch: 'Rice, Dal, Curry', dinner: 'Chapati & Paneer Curry' },
+    { id: 2, day: 'Tuesday', breakfast: 'Dosa & Sambar', lunch: 'Veg Biryani', dinner: 'Rice & Chicken Curry' },
+    { id: 3, day: 'Wednesday', breakfast: 'Upma', lunch: 'Rice, Sambar, Fry', dinner: 'Noodles & Manchuria' },
+    { id: 4, day: 'Thursday', breakfast: 'Poori & Potato Curry', lunch: 'Fried Rice', dinner: 'Chapati & Kurma' },
+    { id: 5, day: 'Friday', breakfast: 'Pongal', lunch: 'Rice & Egg Curry', dinner: 'Paratha & Curry' },
+    { id: 6, day: 'Saturday', breakfast: 'Vada & Coconut Chutney', lunch: 'Veg Meals Special', dinner: 'Jeera Rice & Paneer' },
+    { id: 7, day: 'Sunday', breakfast: 'Masala Dosa', lunch: 'Chicken Biryani', dinner: 'Chapati & Veg Curry' },
+  ]);
+
+  // Handler for admin logout
+  const handleLogout = () => {
+    setIsAdminLoggedIn(false);
+    setCurrentPage('home');
+  };
+
+  // Conditional Rendering: Function to return the correct page component
+  const renderPage = () => {
+    if (currentPage === 'home') {
+      return <Home setPage={setCurrentPage} />;
+    } else if (currentPage === 'rooms') {
+      return <Rooms students={students} />;
+    } else if (currentPage === 'complaints') {
+      return (
+        <Complaints
+          complaints={complaints}
+          setComplaints={setComplaints}
+        />
+      );
+    } else if (currentPage === 'menu') {
+      return <Menu menuItems={menuItems} />;
+    } else if (currentPage === 'warden') {
+      return <Warden />;
+    } else if (currentPage === 'notices') {
+      return <Notices />;
+    } else if (currentPage === 'admin') {
+      // If admin is logged in, show dashboard; otherwise show login page
+      if (isAdminLoggedIn) {
+        return (
+          <Dashboard
+            setPage={setCurrentPage}
+            handleLogout={handleLogout}
+          />
+        );
+      } else {
+        return (
+          <AdminLogin
+            setIsAdminLoggedIn={setIsAdminLoggedIn}
+            setPage={setCurrentPage}
+          />
+        );
+      }
+    } else if (currentPage === 'addStudent') {
+      return (
+        <AddStudent
+          students={students}
+          setStudents={setStudents}
+          setPage={setCurrentPage}
+        />
+      );
+    } else if (currentPage === 'manageMenu') {
+      return (
+        <Menu
+          menuItems={menuItems}
+          setMenuItems={setMenuItems}
+          isAdmin={true}
+          setPage={setCurrentPage}
+        />
+      );
+    } else if (currentPage === 'adminRooms') {
+      return <Rooms students={students} setPage={setCurrentPage} isAdmin={true} />;
+    } else if (currentPage === 'adminComplaints') {
+      return (
+        <Complaints
+          complaints={complaints}
+          setComplaints={setComplaints}
+          setPage={setCurrentPage}
+          isAdmin={true}
+        />
+      );
+    } else if (currentPage === 'reports') {
+      return (
+        <Reports
+          students={students}
+          complaints={complaints}
+          setPage={setCurrentPage}
+        />
+      );
+    }
+  };
+
+  return (
+    <div className="app-container">
+      {/* Passing state and state-updater as props to Navbar */}
+      <Navbar currentPage={currentPage} setPage={setCurrentPage} />
+
+      {/* Rendering the main content based on state */}
+      <div className="main-content">
+        <div className="page-wrapper" key={currentPage}>
+          {renderPage()}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+
+--- src\index.css ---
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Color Palette */
+  --bg-dark: #0f172a; /* Slate 900 */
+  --bg-darker: #020617; /* Slate 950 */
+  --bg-card: rgba(30, 41, 59, 0.7); /* Slate 800 with opacity for glassmorphism */
+  
+  --text-primary: #f8fafc; /* Slate 50 */
+  --text-secondary: #cbd5e1; /* Slate 300 */
+  --text-muted: #94a3b8; /* Slate 400 */
+  
+  --primary: #3b82f6; /* Blue 500 */
+  --primary-hover: #2563eb; /* Blue 600 */
+  --secondary: #8b5cf6; /* Violet 500 */
+  
+  --success: #10b981; /* Emerald 500 */
+  --danger: #ef4444; /* Red 500 */
+  --warning: #f59e0b; /* Amber 500 */
+  --info: #0ea5e9; /* Sky 500 */
+  
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-glow: rgba(59, 130, 246, 0.3);
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 15px var(--border-glow);
+  
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(12px);
+  
+  --transition: all 0.3s ease;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 10px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(59, 130, 246, 0.4);
+  color: #fff;
+}
+
+
+--- src\main.jsx ---
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+
+
+--- index.html ---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aurora Hostel Management System — Admin, Student, and Mess Management made easy." />
+    <title>Aurora Hostel Management System</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+

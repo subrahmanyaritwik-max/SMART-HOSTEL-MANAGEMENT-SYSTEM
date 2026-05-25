@@ -1,0 +1,233 @@
+.menu-container {
+  padding: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+}
+
+.menu-container h2 {
+  color: #0f172a;
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.menu-container>p {
+  color: #64748b;
+  margin-bottom: 28px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Menu cards grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* Card */
+.menu-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  transition: all 0.35s ease;
+}
+
+/* Hover effect */
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(59, 130, 246, 0.12);
+  border-color: #bfdbfe;
+}
+
+/* Header */
+.menu-day-header {
+  background: #ffffff;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.menu-emoji {
+  font-size: 24px;
+  background: #eff6ff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-day-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Meal rows */
+.meal-item {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f8fafc;
+  transition: all 0.25s ease;
+}
+
+.meal-item:last-child {
+  border-bottom: none;
+}
+
+.meal-item:hover {
+  background: #f8fafc;
+}
+
+/* Labels */
+.meal-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+/* Food Name */
+.meal-name {
+  font-size: 15px;
+  color: #0f172a;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Day Selector Styles */
+.day-selector-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.day-btn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.day-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.day-btn.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.selected-day-info {
+  margin-bottom: 24px;
+  text-align: center;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+.selected-day-info h3 {
+  color: #1e293b;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.meal-timings {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.timing-badge {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.no-menu-msg {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  padding: 40px;
+  width: 100%;
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+  .menu-container {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .menu-container h2 {
+    font-size: 26px;
+  }
+
+  .menu-day-header h3 {
+    font-size: 17px;
+  }
+
+  .day-selector-container {
+    gap: 8px;
+  }
+
+  .day-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .meal-timings {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

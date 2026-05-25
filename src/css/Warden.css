@@ -1,0 +1,42 @@
+/* =========================================
+   WARDEN PAGE CSS
+========================================= */
+
+.search-input {
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+.warden-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.warden-card {
+  text-align: center;
+}
+
+.warden-avatar {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.warden-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.warden-card p {
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+}

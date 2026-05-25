@@ -1,0 +1,49 @@
+/* =========================================
+   DASHBOARD CSS
+========================================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  border-top: 5px solid var(--primary-color);
+}
+
+.stat-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.stat-card h3 {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--text-main);
+  margin-top: 10px;
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.text-danger {
+  color: var(--danger-color);
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+/* On mobile, stack quick actions */
+@media (max-width: 768px) {
+  .gap-10 {
+    flex-direction: column;
+  }
+}

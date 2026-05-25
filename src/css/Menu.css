@@ -1,0 +1,76 @@
+/* =========================================
+   MENU PAGE CSS
+========================================= */
+
+.date-display {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.meal-timings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background-color: rgba(13, 110, 253, 0.05);
+  border-left: 4px solid var(--primary-color);
+  margin-bottom: 25px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.menu-card {
+  border-top: 5px solid var(--primary-color);
+}
+
+.menu-day {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 10px;
+}
+
+.meal {
+  margin-bottom: 15px;
+}
+
+.meal h4 {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.meal p {
+  font-weight: 500;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-style: italic;
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.admin-menu-section {
+  border: 1px solid var(--primary-color);
+}
+
+.mt-4 {
+  margin-top: 40px;
+}

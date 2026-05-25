@@ -1,0 +1,77 @@
+/* =========================================
+   COMPLAINTS PAGE CSS
+========================================= */
+
+.new-complaint-section {
+  margin-bottom: 40px;
+  border-left: 5px solid var(--primary-color);
+}
+
+.complaints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.complaint-card {
+  border-left: 5px solid transparent;
+}
+
+/* Status Badges & Borders */
+.status-Pending {
+  border-left-color: var(--danger-color);
+}
+.badge-Pending {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.status-InProgress {
+  border-left-color: var(--warning-color);
+}
+.badge-InProgress {
+  background-color: var(--warning-color);
+  color: #333;
+}
+
+.status-Resolved {
+  border-left-color: var(--success-color);
+}
+.badge-Resolved {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.student-name {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.desc {
+  margin-bottom: 15px;
+}
+
+.admin-reply {
+  background-color: rgba(13, 110, 253, 0.05);
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 3px solid var(--primary-color);
+  margin-top: 10px;
+}
+
+.admin-controls {
+  border-top: 1px dashed var(--border-color);
+  padding-top: 15px;
+}
+
+.admin-controls select {
+  margin-bottom: 10px;
+}
