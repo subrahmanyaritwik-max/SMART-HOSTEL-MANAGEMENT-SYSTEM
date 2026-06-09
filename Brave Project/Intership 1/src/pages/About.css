@@ -1,0 +1,240 @@
+.about-page-wrapper {
+  padding: 40px 0 60px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.about-section-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-header-icon-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(30, 58, 138, 0.08);
+  padding-bottom: 12px;
+}
+
+.card-header-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+}
+
+.about-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.margin-bottom-md {
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(30, 58, 138, 0.08);
+  padding-bottom: 12px;
+}
+
+.about-card-text {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Workflow Visualization Layout */
+.workflow-section {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.workflow-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: var(--color-primary);
+}
+
+.workflow-section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+}
+
+.workflow-visual-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 20px 10px;
+}
+
+.workflow-node-box {
+  background: white;
+  border: 1px solid rgba(30, 58, 138, 0.1);
+  border-radius: var(--border-radius-md);
+  padding: 20px;
+  flex: 1;
+  min-width: 150px;
+  max-width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.02);
+  transition: var(--transition-bounce);
+  position: relative;
+}
+
+.workflow-node-box:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-primary-light);
+  box-shadow: 0 10px 20px rgba(30, 58, 138, 0.08);
+}
+
+.workflow-node-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.workflow-node-box:hover .workflow-node-number {
+  background: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.workflow-node-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.workflow-node-desc {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.workflow-arrow-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.arrow-svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+/* Team section */
+.team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.team-member-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 12px 16px;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid rgba(30, 58, 138, 0.05);
+}
+
+.team-member-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary-light) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.team-member-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-member-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.team-member-role {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Tech Grid section */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.tech-badge-item {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(30, 58, 138, 0.05);
+  border-radius: var(--border-radius-sm);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: var(--transition-smooth);
+}
+
+.tech-badge-item:hover {
+  border-color: rgba(14, 165, 233, 0.2);
+  background: var(--color-accent-light);
+}
+
+.tech-badge-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.tech-badge-description {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 1024px) {
+  .workflow-visual-flow {
+    justify-content: flex-start;
+    padding-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+}

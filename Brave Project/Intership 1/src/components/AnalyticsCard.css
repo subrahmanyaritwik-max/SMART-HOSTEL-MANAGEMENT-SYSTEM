@@ -1,0 +1,150 @@
+.analytics-card {
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  transition: var(--transition-smooth);
+}
+
+.analytics-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.analytics-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.analytics-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.analytics-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.analytics-card-value {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 6px 0;
+  line-height: 1;
+}
+
+.analytics-card-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.analytics-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition-bounce);
+}
+
+.analytics-card:hover .analytics-icon-wrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Variant Styles for premium aesthetics */
+.variant-blue .analytics-icon-wrapper {
+  background: linear-gradient(135deg, var(--color-accent-light) 0%, #bae6fd 100%);
+  color: var(--color-primary-light);
+}
+
+.variant-sky .analytics-icon-wrapper {
+  background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%);
+  color: var(--color-primary);
+}
+
+.variant-indigo .analytics-icon-wrapper {
+  background: linear-gradient(135deg, #e0e7ff 0%, #a5b4fc 100%);
+  color: #4f46e5;
+}
+
+.variant-green .analytics-icon-wrapper {
+  background: linear-gradient(135deg, #dcfce7 0%, #86efac 100%);
+  color: #16a34a;
+}
+
+.variant-orange .analytics-icon-wrapper {
+  background: linear-gradient(135deg, #ffedd5 0%, #fdba74 100%);
+  color: #ea580c;
+}
+
+/* Add custom glow effects on hover for variants */
+.variant-blue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-primary-light);
+}
+
+.variant-sky::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-accent);
+}
+
+.variant-indigo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #6366f1;
+}
+
+.variant-green::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #22c55e;
+}
+
+.variant-orange::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #f97316;
+}
+
+@media (max-width: 480px) {
+  .analytics-card {
+    padding: 16px;
+  }
+  
+  .analytics-card-value {
+    font-size: 1.85rem;
+  }
+}

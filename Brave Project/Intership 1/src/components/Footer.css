@@ -1,0 +1,112 @@
+.footer-wrapper {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(30, 58, 138, 0.05) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(30, 58, 138, 0.08);
+  padding: 40px 0 0 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  padding-bottom: 30px;
+}
+
+.footer-brand-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.footer-logo-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+  transform: rotate(-15deg);
+}
+
+.footer-description {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  max-width: 500px;
+}
+
+.footer-team-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-heading {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.footer-team-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-team-list li {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  position: relative;
+  padding-left: 14px;
+}
+
+.footer-team-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(30, 58, 138, 0.05);
+  padding: 16px 0;
+  background: rgba(30, 58, 138, 0.03);
+}
+
+.footer-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.footer-tagline {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

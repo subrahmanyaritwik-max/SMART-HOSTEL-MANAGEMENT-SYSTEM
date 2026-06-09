@@ -1,0 +1,115 @@
+.home-page-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 16px 60px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 850;
+  letter-spacing: -1.5px;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Chat container styling */
+.chat-section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Error Banner */
+.error-alert-banner {
+  background: rgba(254, 242, 242, 0.7);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 16px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  gap: 14px;
+}
+
+.error-alert-icon {
+  width: 24px;
+  height: 24px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.error-alert-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-alert-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #991b1b;
+}
+
+.error-alert-description {
+  font-size: 0.88rem;
+  color: #b91c1c;
+  margin-top: 2px;
+}
+
+/* Loading Card */
+.loading-card-container {
+  padding: 30px;
+  background: var(--glass-bg);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--glass-border);
+}
+
+.loading-spinner-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.loading-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  letter-spacing: 0.5px;
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .home-page-wrapper {
+    padding: 30px 12px;
+    gap: 24px;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
