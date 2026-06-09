@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HistoryCard from '../components/HistoryCard';
-import { getChatHistory, deleteChatHistoryItem, deleteChatHistory } from '../utils/historyStorage';
+import { getChatHistory, deleteChatHistory, clearHistory } from '../utils/historyStorage';
 import './History.css';
 
 export default function History() {
@@ -20,14 +20,14 @@ export default function History() {
   };
 
   const handleDeleteItem = (id) => {
-    const success = deleteChatHistoryItem(id);
+    const success = deleteChatHistory(id);
     if (success) {
       loadHistory();
     }
   };
 
   const handleClearAll = () => {
-    const success = deleteChatHistory();
+    const success = clearHistory();
     if (success) {
       loadHistory();
       setShowConfirmClear(false);

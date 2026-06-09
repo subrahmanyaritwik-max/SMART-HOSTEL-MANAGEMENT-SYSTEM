@@ -43,7 +43,7 @@ export default function Home() {
       setQuestion('');
     } catch (err) {
       console.error('Submit query failed:', err);
-      setError('Failed to fetch response. Please verify that your n8n workflow server is online and try again.');
+      setError(err.message || 'Failed to fetch response. Please verify that your server is online and try again.');
     } finally {
       setIsLoading(false);
     }

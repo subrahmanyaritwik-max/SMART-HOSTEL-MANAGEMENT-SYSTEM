@@ -1,7 +1,7 @@
 const STORAGE_KEY = 'manivtha_travel_chat_history';
 
 /**
- * Retrieves the full chat history from localStorage.
+ * Retrieves the full chat history list from localStorage.
  * @returns {Array} List of chat history items.
  */
 export const getChatHistory = () => {
@@ -15,10 +15,10 @@ export const getChatHistory = () => {
 };
 
 /**
- * Saves a new question and response to the chat history.
- * @param {string} question - The user question.
- * @param {string} response - The AI response.
- * @returns {Object|null} The newly created chat item or null if failed.
+ * Saves a new chat question and response to localStorage.
+ * @param {string} question - The user question text.
+ * @param {string} response - The AI response text.
+ * @returns {Object|null} The newly created history item or null if failed.
  */
 export const saveChatHistory = (question, response) => {
   if (!question || !response) return null;
@@ -40,11 +40,12 @@ export const saveChatHistory = (question, response) => {
 };
 
 /**
- * Deletes a single chat record by its ID.
- * @param {string} id - The ID of the chat record to delete.
+ * Deletes a single chat record by its unique ID.
+ * @param {string} id - The ID of the record to delete.
  * @returns {boolean} True if successfully deleted, false otherwise.
  */
-export const deleteChatHistoryItem = (id) => {
+export const deleteChatHistory = (id) => {
+  if (!id) return false;
   try {
     const history = getChatHistory();
     const updatedHistory = history.filter((item) => item.id !== id);
@@ -57,10 +58,10 @@ export const deleteChatHistoryItem = (id) => {
 };
 
 /**
- * Clears the entire chat history from localStorage.
+ * Clears all chat history records from localStorage.
  * @returns {boolean} True if successfully cleared, false otherwise.
  */
-export const deleteChatHistory = () => {
+export const clearHistory = () => {
   try {
     localStorage.removeItem(STORAGE_KEY);
     return true;
@@ -69,3 +70,7 @@ export const deleteChatHistory = () => {
     return false;
   }
 };
+
+// Aliases for compatibility
+export const deleteChatHistoryItem = deleteChatHistory;
+export const deleteChatHistoryAll = clearHistory;
