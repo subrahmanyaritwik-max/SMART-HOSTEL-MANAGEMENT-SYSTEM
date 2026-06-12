@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manivtha Tours & Travels - Premium Travel Portal</title>
+    
+    <!-- Google Fonts: Sora and DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <style>
+        /* CSS RESET & DESIGN TOKENS */
+        :root {
+            --bg-light: #F8FAFC;
+            --bg-card: rgba(255, 255, 255, 0.75);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            --border-glass: rgba(24, 95, 165, 0.08);
+            --border-glass-hover: rgba(24, 95, 165, 0.15);
+            --primary: #185FA5;
+            --accent: #0EA5E9;
+            --dark-navy: #0F2952;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --text-light: #94A3B8;
+            --text-white: #FFFFFF;
+            --font-sora: 'Sora', sans-serif;
+            --font-dmsans: 'DM Sans', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 4px 12px rgba(15, 41, 82, 0.03);
+            --shadow-md: 0 10px 30px rgba(15, 41, 82, 0.06);
+            --shadow-lg: 0 20px 40px rgba(15, 41, 82, 0.1);
+            --shadow-glow: 0 8px 25px rgba(14, 165, 233, 0.2);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(14, 165, 233, 0.06) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(24, 95, 165, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(240, 244, 249, 0.4) 0px, transparent 100%);
+            color: var(--text-main);
+            font-family: var(--font-dmsans);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(24, 95, 165, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(24, 95, 165, 0.4);
+        }
+
+        /* APP LAYOUT CONTAINER */
+        .app-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* STICKY GLASSMOPHISM NAVBAR */
+        .navbar-wrapper {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            margin: 20px auto 30px;
+            width: 100%;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 40px;
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+        }
+
+        .navbar:hover {
+            border-color: var(--border-glass-hover);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            font-family: var(--font-sora);
+            font-weight: 800;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(24, 95, 165, 0.25);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-text {
+            font-family: var(--font-sora);
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--dark-navy);
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: var(--font-sora);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(24, 95, 165, 0.04);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: rgba(24, 95, 165, 0.08);
+            border-color: rgba(24, 95, 165, 0.12);
+        }
+
+        /* MOBILE MENU TOGGLE */
+        .mobile-toggle {
+            display: none;
+            color: var(--text-main);
+            font-size: 20px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-toggle:hover {
+            background: rgba(24, 95, 165, 0.08);
+        }
+
+        /* MOBILE NAV MENU */
+        .mobile-nav-menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            margin-top: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .mobile-nav-menu.show {
+            display: flex;
+            max-height: 250px;
+            opacity: 1;
+            padding: 10px 0;
+        }
+
+        .mobile-nav-link {
+            font-family: var(--font-sora);
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 12px 24px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .mobile-nav-link:hover, .mobile-nav-link.active {
+            color: var(--primary);
+            background: rgba(24, 95, 165, 0.08);
+            padding-left: 32px;
+        }
+
+        /* MAIN CONTENT & SPA SECTIONS */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 60px;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeInSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* COMMON GLASSMOPRHISM CARDS */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+        }
+
+        .glass-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-glass-hover);
+        }
+
+        /* COMMON GRADIENT BUTTONS */
+        .gradient-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-white);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 28px;
+            font-family: var(--font-sora);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(24, 95, 165, 0.2);
+            transition: var(--transition-smooth);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--shadow-glow), 0 6px 20px rgba(24, 95, 165, 0.3);
+            filter: brightness(1.05);
+        }
+
+        .gradient-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* CATEGORY BADGES */
+        .category-badge {
+            font-family: var(--font-sora);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-airport { background: rgba(14, 165, 233, 0.1); color: #0284c7; border: 1px solid rgba(14, 165, 233, 0.2); }
+        .badge-vehicles { background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge-booking { background: rgba(99, 102, 241, 0.1); color: #4f46e5; border: 1px solid rgba(99, 102, 241, 0.2); }
+        .badge-packages { background: rgba(245, 158, 11, 0.1); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-payment { background: rgba(139, 92, 246, 0.1); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.2); }
+        .badge-support { background: rgba(244, 63, 94, 0.1); color: #e11d48; border: 1px solid rgba(244, 63, 94, 0.2); }
+        .badge-general { background: rgba(100, 116, 139, 0.1); color: #475569; border: 1px solid rgba(100, 116, 139, 0.2); }
+
+        /* ==========================================
+           1. HOME PAGE VIEW
+           ========================================== */
+        .hero-section {
+            background-color: var(--dark-navy);
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.25) 0px, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(24, 95, 165, 0.2) 0px, transparent 50%),
+                linear-gradient(rgba(15, 41, 82, 0.95), rgba(15, 41, 82, 0.95)),
+                /* Travel grid pattern background */
+                radial-gradient(rgba(14, 165, 233, 0.15) 1px, transparent 0);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            text-align: center;
+            color: var(--text-white);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            background: rgba(14, 165, 233, 0.12);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-family: var(--font-sora);
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);
+        }
+
+        .hero-badge i {
+            animation: pulse-gemini 2s infinite;
+        }
+
+        @keyframes pulse-gemini {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        .hero-title {
+            font-family: var(--font-sora);
+            font-weight: 800;
+            font-size: 46px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #FFFFFF, #E0F2FE, #93C5FD);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #93C5FD;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-family: var(--font-dmsans);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            max-width: 650px;
+            margin: 0 auto 32px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: var(--font-sora);
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--text-white);
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 12px;
+            color: #94A3B8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-div {
+            width: 1px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* INLINE CHAT CARD */
+        .chat-container-card {
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(24, 95, 165, 0.12);
+        }
+
+        .chat-input-section h3 {
+            font-family: var(--font-sora);
+            font-size: 18px;
+            color: var(--dark-navy);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .textarea-wrapper {
+            position: relative;
+            background: #FFFFFF;
+            border: 1.5px solid rgba(24, 95, 165, 0.1);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            transition: var(--transition-smooth);
+            box-shadow: inset 0 2px 4px rgba(15, 41, 82, 0.02);
+        }
+
+        .textarea-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(24, 95, 165, 0.15);
+        }
+
+        .textarea-wrapper textarea {
+            width: 100%;
+            height: 100px;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: var(--font-dmsans);
+            font-size: 15px;
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .textarea-wrapper textarea::placeholder {
+            color: var(--text-light);
+        }
+
+        .textarea-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        /* QUICK CHIPS styling */
+        .chips-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin: 20px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quick-chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .quick-chip {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 95, 165, 0.08);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quick-chip:hover {
+            background: rgba(24, 95, 165, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .quick-chip:active {
+            transform: translateY(0);
+        }
+
+        /* INLINE CHAT AI RESPONSE AREA */
+        .ai-response-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 95, 165, 0.1);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: var(--shadow-sm);
+            display: none; /* Controlled via JS */
+        }
+
+        .response-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .response-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-sora);
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--primary);
+        }
+
+        .online-dot-pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10B981;
+            box-shadow: 0 0 8px #10B981;
+            animation: pulse-green 1.5s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        .response-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            color: var(--text-muted);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 13px;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+            border-color: rgba(24, 95, 165, 0.2);
+            background: rgba(24, 95, 165, 0.04);
+        }
+
+        .action-btn.active {
+            color: #10B981;
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .response-body {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-main);
+            min-height: 40px;
+            white-space: pre-wrap;
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-weight: 500;
+        }
+
+        /* TYPING LOADER ANIMATION */
+        .typing-loader {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .dot-bounce {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(24, 95, 165, 0.4);
+            border-radius: 50%;
+            animation: dot-bounce 1.4s infinite ease-in-out both;
+        }
+
+        .dot-bounce:nth-child(1) { animation-delay: -0.32s; }
+        .dot-bounce:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes dot-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 6px;
+            height: 15px;
+            background-color: var(--accent);
+            margin-left: 3px;
+            animation: blink-cursor 0.8s infinite;
+        }
+
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* RESPONSE RATING ROW */
+        .response-feedback-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #F1F5F9;
+            padding-top: 16px;
+            margin-top: 16px;
+        }
+
+        .feedback-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .star-rating-container {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star-item {
+            font-size: 18px;
+            color: #CBD5E1;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .star-item:hover, .star-item.hover-active {
+            color: #FBBF24;
+            transform: scale(1.15);
+        }
+
+        .star-item.active {
+            color: #F59E0B;
+        }
+
+        .rating-feedback-msg {
+            font-size: 12px;
+            font-weight: 700;
+            color: #10B981;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FEATURE CARDS ROW */
+        .features-section {
+            margin-top: 50px;
+        }
+
+        .features-section h2 {
+            font-family: var(--font-sora);
+            font-size: 24px;
+            color: var(--dark-navy);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(24, 95, 165, 0.08);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .glass-card:hover .feature-icon-wrapper {
+            background: var(--primary);
+            color: var(--text-white);
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            font-family: var(--font-sora);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ==========================================
+           2. HISTORY PAGE VIEW
+           ========================================== */
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .page-main-title {
+            font-family: var(--font-sora);
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dark-navy);
+            letter-spacing: -0.5px;
+        }
+
+        .page-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .history-filters-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input-group {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            background: #FFFFFF;
+            border: 1.5px solid rgba(24, 95, 165, 0.08);
+            border-radius: 12px;
+            padding: 10px 16px;
+            gap: 10px;
+            transition: var(--transition-smooth);
+            min-width: 250px;
+        }
+
+        .search-input-group:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(24, 95, 165, 0.1);
+        }
+
+        .search-input-group i {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .search-input-group input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: var(--font-dmsans);
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .filter-select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-select-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .filter-select-group select {
+            background: #FFFFFF;
+            border: 1.5px solid rgba(24, 95, 165, 0.08);
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-family: var(--font-dmsans);
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-select-group select:focus {
+            border-color: var(--primary);
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .history-card {
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+
+        .history-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .history-timestamp {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .history-question {
+            font-family: var(--font-sora);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .history-answer {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .history-card-footer {
+            border-top: 1px solid #F1F5F9;
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-stars {
+            display: flex;
+            gap: 2px;
+            color: #F59E0B;
+            font-size: 12px;
+        }
+
+        .history-stars i.empty {
+            color: #E2E8F0;
+        }
+
+        .empty-history {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 40px;
+            background: #FFFFFF;
+            border-radius: var(--radius-md);
+            border: 1px dashed rgba(24, 95, 165, 0.15);
+            color: var(--text-muted);
+        }
+
+        .empty-history i {
+            font-size: 40px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .empty-history h4 {
+            font-family: var(--font-sora);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 8px;
+        }
+
+        .empty-history p {
+            font-size: 13px;
+        }
+
+        /* ==========================================
+           3. ANALYTICS PAGE VIEW
+           ========================================== */
+        .analytics-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .analytics-stat-card {
+            border-radius: var(--radius-md);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .analytics-stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .bg-blue-soft { background: rgba(24, 95, 165, 0.08); color: var(--primary); }
+        .bg-yellow-soft { background: rgba(245, 158, 11, 0.08); color: #D97706; }
+        .bg-emerald-soft { background: rgba(16, 185, 129, 0.08); color: #059669; }
+        .bg-indigo-soft { background: rgba(99, 102, 241, 0.08); color: #4F46E5; }
+
+        .analytics-stat-content h3 {
+            font-family: var(--font-sora);
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--dark-navy);
+            margin-bottom: 4px;
+        }
+
+        .analytics-stat-content p {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .charts-row-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .charts-row-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-box-title {
+            font-family: var(--font-sora);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+
+        /* BOTTOM ROW ANALYTICS */
+        .bottom-analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .bottom-analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* PROGRESS BARS STYLING */
+        .top-questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .progress-item-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .progress-item-bar {
+            height: 8px;
+            background: #F1F5F9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+
+        /* ACTIVITY FEED */
+        .activity-feed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .activity-item:last-child {
+            border: none;
+            padding: 0;
+        }
+
+        .activity-dot-wrapper {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(24, 95, 165, 0.06);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .activity-item-content {
+            flex-grow: 1;
+        }
+
+        .activity-item-desc {
+            font-size: 13px;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .activity-item-time {
+            font-size: 11px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* ==========================================
+           4. ABOUT PAGE VIEW
+           ========================================== */
+        .about-intro-card {
+            margin-bottom: 24px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .about-intro-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .about-m-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-family: var(--font-sora);
+            font-size: 48px;
+            font-weight: 800;
+            box-shadow: var(--shadow-glow);
+            flex-shrink: 0;
+        }
+
+        .about-intro-details h2 {
+            font-family: var(--font-sora);
+            font-size: 22px;
+            color: var(--dark-navy);
+            margin-bottom: 10px;
+        }
+
+        .about-intro-details p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .about-project-card {
+            margin-bottom: 24px;
+        }
+
+        .about-project-card h3 {
+            font-family: var(--font-sora);
+            font-size: 18px;
+            color: var(--dark-navy);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .about-project-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .team-title {
+            font-family: var(--font-sora);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .team-avatar {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-family: var(--font-sora);
+            font-size: 24px;
+            font-weight: 800;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .avatar-blue { background: linear-gradient(135deg, var(--primary), var(--accent)); box-shadow: 0 4px 12px rgba(24, 95, 165, 0.2); }
+        .avatar-green { background: linear-gradient(135deg, #10B981, #34D399); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+        .avatar-purple { background: linear-gradient(135deg, #8B5CF6, #A78BFA); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2); }
+
+        .team-name {
+            font-family: var(--font-sora);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .team-badge {
+            background: rgba(24, 95, 165, 0.06);
+            border: 1px solid rgba(24, 95, 165, 0.15);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        /* TECH STACK STYLING */
+        .tech-section-title {
+            font-family: var(--font-sora);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .tech-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 95, 165, 0.08);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(24, 95, 165, 0.2);
+        }
+
+        .tech-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .tech-name {
+            font-family: var(--font-sora);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--dark-navy);
+        }
+
+        .tech-tag {
+            font-size: 10px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ==========================================
+           5. FLOATING CHATBOT POPUP
+           ========================================== */
+        .chat-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-white);
+            border: none;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow-glow), 0 4px 15px rgba(24, 95, 165, 0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .chat-floating-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 25px rgba(14, 165, 233, 0.6);
+        }
+
+        .chat-floating-btn:active {
+            transform: scale(0.95);
+        }
+
+        .chat-popup {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 520px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass-hover);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .chat-popup.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .chat-popup-header {
+            background: var(--dark-navy);
+            color: var(--text-white);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .chat-header-meta h4 {
+            font-family: var(--font-sora);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .chat-header-status {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chat-close-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-close-btn:hover {
+            color: var(--text-white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-messages-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #F8FAFC;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            animation: bubble-appear 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes bubble-appear {
+            from { opacity: 0; transform: translateY(10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .bubble-ai {
+            align-self: flex-start;
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid rgba(24, 95, 165, 0.06);
+            border-top-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .bubble-user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-white);
+            border-top-right-radius: 4px;
+            box-shadow: 0 4px 10px rgba(24, 95, 165, 0.15);
+        }
+
+        .chat-bubble-chips {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chat-bubble-chip {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .chat-bubble-chip:hover {
+            background: rgba(24, 95, 165, 0.05);
+            border-color: var(--primary);
+        }
+
+        .chat-input-bar {
+            padding: 12px 16px;
+            background: #FFFFFF;
+            border-top: 1px solid #F1F5F9;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .chat-input-bar input {
+            flex-grow: 1;
+            border: 1.5px solid rgba(24, 95, 165, 0.08);
+            border-radius: 20px;
+            padding: 10px 16px;
+            font-family: var(--font-dmsans);
+            font-size: 14px;
+            outline: none;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+        }
+
+        .chat-input-bar input:focus {
+            border-color: var(--primary);
+        }
+
+        .chat-send-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.08);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ==========================================
+           6. FOOTER
+           ========================================== */
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-glass);
+            padding: 24px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .footer i {
+            color: #EF4444;
+            margin: 0 4px;
+        }
+
+        /* MEDIA QUERIES FOR MOBILE */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+            .hero-title {
+                font-size: 32px;
+            }
+            .hero-subtitle {
+                font-size: 15px;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 8px;
+            }
+            .stat-div {
+                width: 80%;
+                height: 1px;
+            }
+            .chat-container-card {
+                margin-top: -30px;
+                padding: 20px;
+            }
+            .page-main-title {
+                font-size: 26px;
+            }
+            .chat-popup {
+                width: calc(100vw - 40px);
+                right: 20px;
+                bottom: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PARTICLES & BACKING BLUR ORBS FOR PREMIUM SAAS STYLE -->
+    <div style="position: fixed; width: 300px; height: 300px; border-radius: 50%; background: rgba(14, 165, 233, 0.08); filter: blur(80px); top: 10%; left: -50px; z-index: -10; pointer-events: none;"></div>
+    <div style="position: fixed; width: 400px; height: 400px; border-radius: 50%; background: rgba(24, 95, 165, 0.06); filter: blur(100px); bottom: 10%; right: -100px; z-index: -10; pointer-events: none;"></div>
+
+    <div class="app-container">
+        
+        <!-- STICKY NAVBAR -->
+        <div class="navbar-wrapper">
+            <nav class="navbar">
+                <a class="nav-brand" onclick="navigateTo('home')">
+                    <div class="logo-badge">M</div>
+                    <div class="brand-text">Manivtha <span>Tours & Travels</span></div>
+                </a>
+                
+                <div class="nav-links">
+                    <a class="nav-link active" data-page="home" onclick="navigateTo('home')">Home</a>
+                    <a class="nav-link" data-page="history" onclick="navigateTo('history')">History</a>
+                    <a class="nav-link" data-page="analytics" onclick="navigateTo('analytics')">Analytics</a>
+                    <a class="nav-link" data-page="about" onclick="navigateTo('about')">About</a>
+                </div>
+                
+                <div class="mobile-toggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            
+            <!-- MOBILE MENU DRAWER -->
+            <div class="mobile-nav-menu" id="mobile-nav-menu">
+                <a class="mobile-nav-link active" data-page="home" onclick="navigateTo('home')">Home</a>
+                <a class="mobile-nav-link" data-page="history" onclick="navigateTo('history')">History</a>
+                <a class="mobile-nav-link" data-page="analytics" onclick="navigateTo('analytics')">Analytics</a>
+                <a class="mobile-nav-link" data-page="about" onclick="navigateTo('about')">About</a>
+            </div>
+        </div>
+
+        <!-- MAIN SPA CONTENT ROUTER -->
+        <main class="main-content">
+            
+            <!-- 1. HOME VIEW -->
+            <section id="page-home" class="page-section active">
+                <div class="hero-section">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Powered by Gemini AI
+                    </div>
+                    <h1 class="hero-title">AI Travel FAQ Chatbot</h1>
+                    <p class="hero-subtitle">Get instant answers to your transport bookings, local tour packages, and travel queries dynamically powered by intelligence.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-val">500+</div>
+                            <div class="stat-lbl">Questions Solved</div>
+                        </div>
+                        <div class="stat-div"></div>
+                        <div class="stat-item">
+                            <div class="stat-val">4.8★</div>
+                            <div class="stat-lbl">User Rating</div>
+                        </div>
+                        <div class="stat-div"></div>
+                        <div class="stat-item">
+                            <div class="stat-val">24/7</div>
+                            <div class="stat-lbl">AI Support</div>
+                        </div>
+                    </div>
+                    
+                    <button class="gradient-btn" onclick="openFloatingChat()">
+                        <i class="fa-solid fa-comment-dots"></i> Open Live AI Chat
+                    </button>
+                </div>
+                
+                <!-- INLINE CHAT CARD -->
+                <div class="glass-card chat-container-card">
+                    <div class="chat-input-section">
+                        <h3><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> Ask Anything to AI Travel Assistant</h3>
+                        
+                        <div class="textarea-wrapper">
+                            <textarea id="inline-query-input" placeholder="Type your travel question here... (e.g. Hyderabad airport pickup rates, Kerala tour packages, tempo traveller fleets...)"></textarea>
+                            <div class="textarea-footer">
+                                <button class="gradient-btn" id="inline-ask-btn" onclick="submitInlineQuery()">
+                                    <i class="fa-solid fa-paper-plane"></i> Ask AI
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="chips-title">Quick Topics</div>
+                        <div class="quick-chips-row">
+                            <div class="quick-chip" onclick="fillInlineChip('🚗 Airport Pickup')"><i class="fa-solid fa-plane-arrival"></i> Airport Pickup</div>
+                            <div class="quick-chip" onclick="fillInlineChip('🚙 Vehicles')"><i class="fa-solid fa-car"></i> Vehicles</div>
+                            <div class="quick-chip" onclick="fillInlineChip('📅 Booking')"><i class="fa-solid fa-calendar-check"></i> Booking</div>
+                            <div class="quick-chip" onclick="fillInlineChip('🗺️ Tour Packages')"><i class="fa-solid fa-map-location-dot"></i> Tour Packages</div>
+                            <div class="quick-chip" onclick="fillInlineChip('💬 Support')"><i class="fa-solid fa-headset"></i> Support</div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Response Area -->
+                    <div class="ai-response-card" id="inline-response-card">
+                        <div class="response-header">
+                            <div class="response-logo">
+                                <i class="fa-solid fa-robot"></i> Manivtha Travel AI 
+                                <span class="online-dot-pulse"></span>
+                            </div>
+                            <div class="response-actions">
+                                <button class="action-btn" id="btn-copy-response" onclick="copyInlineResponse()" title="Copy Response">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                                <button class="action-btn" id="btn-download-response" onclick="downloadInlineResponse()" title="Download Response">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="response-body" id="inline-response-body">
+                            <!-- Populated by JS -->
+                        </div>
+                        
+                        <!-- Star Rating -->
+                        <div class="response-feedback-row" id="inline-feedback-row" style="display: none;">
+                            <div class="feedback-label">
+                                <i class="fa-solid fa-star-half-stroke" style="color: #FBBF24;"></i> Rate this response:
+                            </div>
+                            <div class="star-rating-container" id="star-rating-row">
+                                <i class="fa-solid fa-star star-item" data-index="1" onclick="submitInlineRating(1)"></i>
+                                <i class="fa-solid fa-star star-item" data-index="2" onclick="submitInlineRating(2)"></i>
+                                <i class="fa-solid fa-star star-item" data-index="3" onclick="submitInlineRating(3)"></i>
+                                <i class="fa-solid fa-star star-item" data-index="4" onclick="submitInlineRating(4)"></i>
+                                <i class="fa-solid fa-star star-item" data-index="5" onclick="submitInlineRating(5)"></i>
+                            </div>
+                            <div class="rating-feedback-msg" id="rating-feedback-msg">
+                                Thank you for your feedback! ⭐
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature Cards -->
+                <div class="features-section">
+                    <h2>Premium Smart Travel Features</h2>
+                    <div class="features-grid">
+                        <div class="glass-card feature-card">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h4 class="feature-title">Gemini AI Powered</h4>
+                            <p class="feature-desc">Utilizes state-of-the-art Google Gemini LLM API via n8n integration for deep, context-aware travel logistics guidance.</p>
+                        </div>
+                        <div class="glass-card feature-card">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <h4 class="feature-title">Instant Responses</h4>
+                            <p class="feature-desc">Zero latency lookup for transport queries, packages rates, and booking protocols, with elegant typing flows.</p>
+                        </div>
+                        <div class="glass-card feature-card">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <h4 class="feature-title">Smart Analytics</h4>
+                            <p class="feature-desc">Visualize question frequency, rating matrices, and core search categories via dynamic Chart.js dashboards.</p>
+                        </div>
+                        <div class="glass-card feature-card">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+                            <h4 class="feature-title">Firebase Backed</h4>
+                            <p class="feature-desc">Engineered to sync live conversation states, telemetry rating averages, and search logs across persistent databases.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 2. HISTORY VIEW -->
+            <section id="page-history" class="page-section">
+                <div class="page-header">
+                    <div class="page-title-row">
+                        <h1 class="page-main-title">Interactive Query History</h1>
+                        <span class="category-badge badge-support" id="history-counter">0 Saved Records</span>
+                    </div>
+                    <p class="page-desc">Search and filter through historical answers, user ratings, and categories logged from portal chats.</p>
+                </div>
+                
+                <div class="history-filters-bar">
+                    <div class="search-input-group">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="history-search-input" placeholder="Search questions or keywords..." oninput="filterHistory()">
+                    </div>
+                    <div class="filter-select-group">
+                        <label for="history-category-filter">Category</label>
+                        <select id="history-category-filter" onchange="filterHistory()">
+                            <option value="All">All Categories</option>
+                            <option value="Airport">Airport</option>
+                            <option value="Vehicles">Vehicles</option>
+                            <option value="Booking">Booking</option>
+                            <option value="Packages">Packages</option>
+                            <option value="Payment">Payment</option>
+                            <option value="Support">Support</option>
+                            <option value="General">General</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="history-grid" id="history-grid-container">
+                    <!-- Dynamic history card entries injected here -->
+                </div>
+            </section>
+            
+            <!-- 3. ANALYTICS VIEW -->
+            <section id="page-analytics" class="page-section">
+                <div class="page-header">
+                    <h1 class="page-main-title">Chat & Portal Analytics</h1>
+                    <p class="page-desc">Analyze portal interactions, query volumes, average ratings, and categorization matrix trends.</p>
+                </div>
+                
+                <div class="analytics-stats-grid">
+                    <div class="glass-card analytics-stat-card">
+                        <div class="analytics-stat-icon bg-blue-soft">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div class="analytics-stat-content">
+                            <h3 id="stat-total-questions">0</h3>
+                            <p>Total Questions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card analytics-stat-card">
+                        <div class="analytics-stat-icon bg-yellow-soft">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="analytics-stat-content">
+                            <h3 id="stat-avg-rating">0.0</h3>
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card analytics-stat-card">
+                        <div class="analytics-stat-icon bg-emerald-soft">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <div class="analytics-stat-content">
+                            <h3 id="stat-response-time">1.2s</h3>
+                            <p>Avg Response</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card analytics-stat-card">
+                        <div class="analytics-stat-icon bg-indigo-soft">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="analytics-stat-content">
+                            <h3 id="stat-unique-users">1</h3>
+                            <p>Unique Users</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chart Row Grid -->
+                <div class="charts-row-grid">
+                    <div class="glass-card">
+                        <div class="chart-box-title">
+                            <i class="fa-solid fa-chart-line" style="color: var(--primary);"></i> Question Volume Trends (Last 7 Days)
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="line-chart-volume"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="chart-box-title">
+                            <i class="fa-solid fa-chart-pie" style="color: var(--accent);"></i> Category Share
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="doughnut-chart-categories"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Analytics Row -->
+                <div class="bottom-analytics-grid">
+                    <div class="glass-card">
+                        <div class="chart-box-title">
+                            <i class="fa-solid fa-fire" style="color: #EF4444;"></i> Top 5 Most Asked Questions
+                        </div>
+                        <div class="top-questions-list">
+                            <div>
+                                <div class="progress-item-label">
+                                    <span>How to book Hyderabad airport pickup?</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="progress-item-bar">
+                                    <div class="progress-bar-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="progress-item-label">
+                                    <span>Tempo traveller rental rates for group tour?</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="progress-item-bar">
+                                    <div class="progress-bar-fill" style="width: 72%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="progress-item-label">
+                                    <span>Is advance payment required?</span>
+                                    <span>60%</span>
+                                </div>
+                                <div class="progress-item-bar">
+                                    <div class="progress-bar-fill" style="width: 60%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="progress-item-label">
+                                    <span>What are the Kerala packages details?</span>
+                                    <span>55%</span>
+                                </div>
+                                <div class="progress-item-bar">
+                                    <div class="progress-bar-fill" style="width: 55%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="progress-item-label">
+                                    <span>Can I pay driver in cash at destination?</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="progress-item-bar">
+                                    <div class="progress-bar-fill" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="chart-box-title">
+                            <i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Recent Portal Activity
+                        </div>
+                        <div class="activity-feed-list" id="activity-feed-container">
+                            <!-- Dynamic activities injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 4. ABOUT VIEW -->
+            <section id="page-about" class="page-section">
+                <div class="page-header">
+                    <h1 class="page-main-title">About the Project</h1>
+                    <p class="page-desc">Discover the company profile, BRAVE Internship details, and the developers behind this product.</p>
+                </div>
+                
+                <div class="glass-card about-intro-card">
+                    <div class="about-m-logo">M</div>
+                    <div class="about-intro-details">
+                        <h2>Manivtha Tours & Travels</h2>
+                        <p>Manivtha Tours & Travels is a premium travel and transportation service provider in India. We specialize in providing highly reliable chauffeur-driven luxury sedans, family SUVs, large passenger tempo travellers, and corporate coach logistics across major cities. Known for our extreme customer focus, vehicle maintenance standards, and verified drivers, we guarantee comfort on every ride.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card about-project-card">
+                    <h3><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> BRAVE Internship Program</h3>
+                    <p>This intelligent travel dashboard and AI Travel FAQ Chatbot was designed and deployed as a milestone project during the <strong>BRAVE Internship Program</strong>. Integrated with Google Gemini Large Language Models via custom automated n8n webhook middleware pipelines, this site provides instant answers regarding operations, payments, safety, packages, and logistics in real-time, matching standard SaaS customer support portal experiences.</p>
+                </div>
+                
+                <h3 class="team-title">Our Developer Team</h3>
+                <div class="team-grid">
+                    <div class="glass-card team-card">
+                        <div class="team-avatar avatar-blue">GR</div>
+                        <h4 class="team-name">Gamini Subrahmanya Ritwik</h4>
+                        <p class="team-role">Full Stack Developer & Project Lead</p>
+                        <span class="team-badge">BRAVE Intern</span>
+                    </div>
+                    
+                    <div class="glass-card team-card">
+                        <div class="team-avatar avatar-green">KC</div>
+                        <h4 class="team-name">K V Chetan Kumar</h4>
+                        <p class="team-role">Frontend Developer & UI Designer</p>
+                        <span class="team-badge">BRAVE Intern</span>
+                    </div>
+                    
+                    <div class="glass-card team-card">
+                        <div class="team-avatar avatar-purple">SA</div>
+                        <h4 class="team-name">Shaik Asif Hussain</h4>
+                        <p class="team-role">Backend Developer & AI Integration</p>
+                        <span class="team-badge">BRAVE Intern</span>
+                    </div>
+                </div>
+                
+                <h3 class="tech-section-title">Core Technology Stack</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <span class="tech-icon">⚛️</span>
+                        <div class="tech-name">React JS</div>
+                        <span class="tech-tag">Frontend</span>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🌐</span>
+                        <div class="tech-name">HTML/CSS/JS</div>
+                        <span class="tech-tag">Frontend</span>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🟩</span>
+                        <div class="tech-name">Node.js</div>
+                        <span class="tech-tag">Backend</span>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🚂</span>
+                        <div class="tech-name">Express.js</div>
+                        <span class="tech-tag">Backend</span>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🔥</span>
+                        <div class="tech-name">Firebase</div>
+                        <span class="tech-tag">Database</span>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">✨</span>
+                        <div class="tech-name">Gemini API</div>
+                        <span class="tech-tag">AI Engine</span>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🔄</span>
+                        <div class="tech-name">n8n</div>
+                        <span class="tech-tag">Automation</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>Built with <i class="fa-solid fa-heart"></i> during the BRAVE Internship Program · Manivtha Tours & Travels · © 2025</p>
+        </footer>
+
+    </div>
+
+    <!-- FLOATING CHATBOT ELEMENTS -->
+    <button class="chat-floating-btn" id="chat-floating-btn" onclick="toggleFloatingChat()">
+        <i class="fa-solid fa-comment"></i>
+    </button>
+
+    <div class="chat-popup" id="chat-popup">
+        <div class="chat-popup-header">
+            <div class="chat-header-info">
+                <div class="chat-header-avatar">
+                    <i class="fa-solid fa-compass" style="color: #fff; animation: spin-compass 8s infinite linear;"></i>
+                </div>
+                <div class="chat-header-meta">
+                    <h4>Manivtha Travel AI</h4>
+                    <div class="chat-header-status">
+                        <span class="online-dot-pulse" style="width:6px;height:6px;box-shadow:0 0 6px #10B981;"></span> Powered by Gemini AI · n8n
+                    </div>
+                </div>
+            </div>
+            <button class="chat-close-btn" onclick="toggleFloatingChat()">✕</button>
+        </div>
+        
+        <div class="chat-messages-container" id="chat-messages">
+            <!-- Welcome message bubble -->
+            <div class="chat-bubble bubble-ai">
+                Hi! Welcome to Manivtha Tours & Travels ✈️<br>How can I help you today?
+                
+                <div class="chat-bubble-chips" id="chat-welcome-chips">
+                    <div class="chat-bubble-chip" onclick="handleChatChipClick('✈️ Airport pickup')">✈️ Airport pickup</div>
+                    <div class="chat-bubble-chip" onclick="handleChatChipClick('🚗 Vehicles')">🚗 Vehicles</div>
+                    <div class="chat-bubble-chip" onclick="handleChatChipClick('🗺️ Packages')">🗺️ Packages</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-bar">
+            <input type="text" id="chat-text-input" placeholder="Type a message..." onkeypress="handleChatKeyPress(event)">
+            <button class="chat-send-btn" onclick="submitChatQuery()">
+                <i class="fa-solid fa-paper-plane" style="transform: rotate(0deg); font-size:12px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes spin-compass {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+
+    <!-- PORTAL JAVASCRIPT LOGIC -->
+    <script>
+        // WEBHOOK middeware configurations
+        const N8N_WEBHOOK_URL = 'https://rithu-rithvik.app.n8n.cloud/webhook/5c5277f4-a97a-45f3-bd91-ac4ba56053d1/chat';
+        const SESSION_ID = 'session-' + Math.random().toString(36).substring(2, 12);
+
+        // Core App Data State
+        const state = {
+            history: [
+                {
+                    id: 1,
+                    question: "How do I book an airport pickup at Hyderabad airport (RGIA)?",
+                    answer: "To book an airport pickup at Hyderabad RGIA, you can use our online booking form or contact our 24/7 hotline at +91 98765 43210. Provide your flight details, arrival time, and preferred vehicle class (Sedan, SUV, or Luxury). Our chauffeur will wait for you at the arrival hall exit gate with a personalized name card. We offer flat rates starting at ₹1,200 including airport toll charges.",
+                    timestamp: new Date(Date.now() - 5 * 3600000 * 24).toLocaleString(),
+                    category: "Airport",
+                    rating: 5
+                },
+                {
+                    id: 2,
+                    question: "What types of vehicles are available in your fleet for local travel?",
+                    answer: "We offer a diverse fleet of well-maintained, premium vehicles: \n- Hatchbacks: Maruti Swift, Hyundai i20 (ideal for city commutes)\n- Sedans: Honda City, Maruti Dzire (standard comfort)\n- SUVs: Toyota Innova Crysta, Mahindra XUV700 (spacious & family friendly)\n- Luxury: Mercedes-Benz E-Class, Audi A6 (corporate travel & events)\n- Tempo Travellers: 12-seater and 17-seater variants (for group tours). All vehicles come with experienced, verified professional chauffeurs.",
+                    timestamp: new Date(Date.now() - 4 * 3600000 * 24).toLocaleString(),
+                    category: "Vehicles",
+                    rating: 4
+                },
+                {
+                    id: 3,
+                    question: "Can I modify my booking dates for the Tirupati tour package?",
+                    answer: "Yes, you can modify your booking dates for the Tirupati tour package up to 48 hours before the scheduled departure without any penalty. Date modifications are subject to vehicle availability and darshan slot availability. Please contact your dedicated tour manager or call us with your Booking ID to initiate the change.",
+                    timestamp: new Date(Date.now() - 3 * 3600000 * 24).toLocaleString(),
+                    category: "Booking",
+                    rating: 5
+                },
+                {
+                    id: 4,
+                    question: "What is included in the 5 Days Kerala Backwater tour package?",
+                    answer: "Our 5 Days / 4 Nights Kerala Backwater package includes:\n- A private chauffeur-driven AC sedan or SUV for the entire tour.\n- 2 nights accommodation in Cochin (4-star hotel) and 1 night in Munnar.\n- 1 night stay in a premium private Houseboat in Alleppey (including all meals).\n- Daily breakfast at hotels.\n- Sightseeing tours and boat cruise fees.\n- Tolls, fuel, driver allowance, and parking charges. Flights/trains to Kerala are excluded.",
+                    timestamp: new Date(Date.now() - 2 * 3600000 * 24).toLocaleString(),
+                    category: "Packages",
+                    rating: 5
+                },
+                {
+                    id: 5,
+                    question: "What payment methods do you accept, and is there a deposit?",
+                    answer: "We accept all major credit/debit cards, UPI (GPay, PhonePe, Paytm), Net Banking, and corporate bank transfers. For bookings, we require a 20% advance deposit to confirm the vehicle and reservation. The remaining 80% can be paid directly to the driver or via our online portal at the end of your trip. All transactions are fully secured and invoiced.",
+                    timestamp: new Date(Date.now() - 1 * 3600000 * 24).toLocaleString(),
+                    category: "Payment",
+                    rating: 4
+                },
+                {
+                    id: 6,
+                    question: "Who do I contact if my vehicle is delayed or there is an emergency?",
+                    answer: "In the rare event of a delay or emergency, our 24/7 Dispatch Control Room is available at +91 99887 76655. Each booking is assigned a live coordinator. You will receive driver details (name, photo, phone number, and vehicle plate number) via SMS and WhatsApp 3 hours before your scheduled pickup. All our vehicles are GPS tracked for safety.",
+                    timestamp: new Date(Date.now() - 12 * 3600000).toLocaleString(),
+                    category: "Support",
+                    rating: 5
+                }
+            ],
+            activity: [
+                { type: 'query', text: "Asked about Airport pickup Hyderabad", time: "2 hours ago" },
+                { type: 'rating', text: "Rated booking modification support 5 stars", time: "1 day ago" },
+                { type: 'query', text: "Requested fleet availability for corporate SUV", time: "2 days ago" },
+                { type: 'query', text: "Asked about Kerala backwater houseboat inclusion", time: "3 days ago" },
+                { type: 'rating', text: "Rated payment query answer 4 stars", time: "4 days ago" }
+            ],
+            lastCreatedItemId: null
+        };
+
+        // Chart instances
+        let lineChart = null;
+        let doughnutChart = null;
+
+        // Current daily numbers initially matching preloaded questions (e.g. 1 question per day over last 6 days + 1 today)
+        const dailyQuestions = [1, 1, 1, 1, 1, 1, 0]; 
+
+        // Initial setup on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderHistoryGrid();
+            initCharts();
+            updateAnalyticsStats();
+            renderActivityFeed();
+        });
+
+        // ----------------------------------------------------
+        // SPA ROUTING & NAVIGATION
+        // ----------------------------------------------------
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            
+            // Show target page
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) {
+                target.classList.add('active');
+            }
+            
+            // Update Nav link states
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Auto close mobile drawer on navigate
+            document.getElementById('mobile-nav-menu').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Force Chart.js redraw when navigating to analytics page
+            if (pageId === 'analytics') {
+                setTimeout(() => {
+                    if (lineChart && doughnutChart) {
+                        lineChart.resize();
+                        doughnutChart.resize();
+                    }
+                }, 100);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-nav-menu');
+            menu.classList.toggle('show');
+        }
+
+        // ----------------------------------------------------
+        // INTEGRATED n8n API WEBHOOK FUNCTION
+        // ----------------------------------------------------
+        async function callN8nAI(message) {
+            try {
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chatInput: message,
+                        sessionId: SESSION_ID,
+                        action: "sendMessage"
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Server returned error status');
+                }
+                
+                const data = await response.json();
+                return data.output || "No output returned from Gemini workflow.";
+            } catch (error) {
+                console.error("n8n Webhook Error:", error);
+                throw new Error("⚠️ Could not reach the AI. Make sure the n8n workflow is Published and active.");
+            }
+        }
+
+        // Helper: Classify categories based on query keywords
+        function classifyCategory(text) {
+            const low = text.toLowerCase();
+            if (low.includes('airport') || low.includes('pickup') || low.includes('drop') || low.includes('flight')) return 'Airport';
+            if (low.includes('car') || low.includes('vehicle') || low.includes('suv') || low.includes('sedan') || low.includes('tempo') || low.includes('fleet') || low.includes('driver')) return 'Vehicles';
+            if (low.includes('book') || low.includes('reserve') || low.includes('cancel') || low.includes('modify') || low.includes('date')) return 'Booking';
+            if (low.includes('tour') || low.includes('package') || low.includes('kerala') || low.includes('tirupati') || low.includes('goa') || low.includes('trip')) return 'Packages';
+            if (low.includes('pay') || low.includes('price') || low.includes('cost') || low.includes('advance') || low.includes('deposit') || low.includes('card') || low.includes('upi')) return 'Payment';
+            if (low.includes('support') || low.includes('help') || low.includes('emergency') || low.includes('delay') || low.includes('contact') || low.includes('call')) return 'Support';
+            return 'General';
+        }
+
+        // Add transaction entry into state arrays
+        function logInteractionToState(question, answer) {
+            const category = classifyCategory(question);
+            const newItem = {
+                id: Date.now(),
+                question: question,
+                answer: answer,
+                timestamp: new Date().toLocaleString(),
+                category: category,
+                rating: null // Rated later by user
+            };
+            
+            // Add to front of history
+            state.history.unshift(newItem);
+            state.lastCreatedItemId = newItem.id;
+
+            // Increment current day question volume count
+            dailyQuestions[6]++;
+
+            // Append query to activity feed
+            state.activity.unshift({
+                type: 'query',
+                text: `Asked about ${category.toLowerCase()}: "${question.substring(0, 30)}..."`,
+                time: "Just now"
+            });
+            if (state.activity.length > 5) state.activity.pop();
+
+            // Refresh UI states
+            renderHistoryGrid();
+            updateAnalyticsStats();
+            renderActivityFeed();
+            updateChartData(category);
+        }
+
+        // ----------------------------------------------------
+        // INLINE SEARCH CHAT BOX
+        // ----------------------------------------------------
+        function fillInlineChip(text) {
+            const input = document.getElementById('inline-query-input');
+            const topic = text.split(' ').slice(1).join(' ');
+            input.value = `Tell me about your ${topic} services.`;
+            input.focus();
+        }
+
+        async function submitInlineQuery() {
+            const input = document.getElementById('inline-query-input');
+            const question = input.value.trim();
+            if (!question) return;
+
+            const responseCard = document.getElementById('inline-response-card');
+            const responseBody = document.getElementById('inline-response-body');
+            const askBtn = document.getElementById('inline-ask-btn');
+            const feedbackRow = document.getElementById('inline-feedback-row');
+            const ratingMsg = document.getElementById('rating-feedback-msg');
+            const starRow = document.getElementById('star-rating-row');
+            
+            // Reset feedback states
+            feedbackRow.style.display = 'none';
+            ratingMsg.style.display = 'none';
+            starRow.style.display = 'flex';
+            resetStars(starRow);
+
+            responseCard.style.display = 'block';
+            responseBody.innerHTML = `
+                <div class="typing-loader">
+                    <div class="dot-bounce"></div>
+                    <div class="dot-bounce"></div>
+                    <div class="dot-bounce"></div>
+                </div>
+            `;
+            
+            askBtn.disabled = true;
+            askBtn.style.opacity = '0.6';
+
+            try {
+                const answer = await callN8nAI(question);
+                
+                // Typing effect
+                let i = 0;
+                responseBody.innerHTML = "";
+                const cursor = document.createElement("span");
+                cursor.className = "typing-cursor";
+                responseBody.appendChild(cursor);
+                
+                function typeChar() {
+                    if (i < answer.length) {
+                        cursor.insertAdjacentText('beforebegin', answer.charAt(i));
+                        i++;
+                        setTimeout(typeChar, 10);
+                    } else {
+                        cursor.remove();
+                        // Enable feedback rating
+                        feedbackRow.style.display = 'flex';
+                    }
+                }
+                typeChar();
+                
+                // Add to history and analytics
+                logInteractionToState(question, answer);
+                
+            } catch (err) {
+                responseBody.innerHTML = `<span class="error-message">${err.message}</span>`;
+            } finally {
+                askBtn.disabled = false;
+                askBtn.style.opacity = '1';
+                input.value = "";
+            }
+        }
+
+        // Copy response to clipboard
+        function copyInlineResponse() {
+            const body = document.getElementById('inline-response-body');
+            const copyBtn = document.getElementById('btn-copy-response');
+            
+            if (!body || body.innerText.includes('Could not reach')) return;
+            
+            navigator.clipboard.writeText(body.innerText).then(() => {
+                copyBtn.classList.add('active');
+                copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                setTimeout(() => {
+                    copyBtn.classList.remove('active');
+                    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+                }, 2000);
+            });
+        }
+
+        // Download response as txt file
+        function downloadInlineResponse() {
+            const body = document.getElementById('inline-response-body');
+            if (!body || body.innerText.includes('Could not reach')) return;
+
+            const textContent = `Manivtha Tours & Travels - AI Assistant Response\n\nGenerated: ${new Date().toLocaleString()}\n\nResponse:\n${body.innerText}`;
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            const anchor = document.createElement('a');
+            anchor.href = URL.createObjectURL(blob);
+            anchor.download = `Manivtha_Travel_AI_${Date.now()}.txt`;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        }
+
+        // Submit star feedback ratings for inline queries
+        function submitInlineRating(stars) {
+            const starRow = document.getElementById('star-rating-row');
+            const ratingMsg = document.getElementById('rating-feedback-msg');
+            
+            // Highlight stars
+            const children = Array.from(starRow.children);
+            children.forEach(star => {
+                const idx = parseInt(star.getAttribute('data-index'));
+                if (idx <= stars) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+
+            // Update item in state
+            if (state.lastCreatedItemId) {
+                const item = state.history.find(h => h.id === state.lastCreatedItemId);
+                if (item) {
+                    item.rating = stars;
+                    
+                    // Add rating to feed logs
+                    state.activity.unshift({
+                        type: 'rating',
+                        text: `User rated ${item.category} answer ${stars} stars`,
+                        time: "Just now"
+                    });
+                    if (state.activity.length > 5) state.activity.pop();
+                    
+                    // Trigger refresh
+                    renderHistoryGrid();
+                    updateAnalyticsStats();
+                    renderActivityFeed();
+                }
+            }
+
+            // Hide stars, show thank you msg
+            setTimeout(() => {
+                starRow.style.display = 'none';
+                ratingMsg.style.display = 'block';
+            }, 500);
+        }
+
+        function resetStars(container) {
+            Array.from(container.children).forEach(star => {
+                star.classList.remove('active');
+            });
+        }
+
+        // ----------------------------------------------------
+        // FLOATING CHATBOT INTERACTIVE INTERFACE
+        // ----------------------------------------------------
+        function openFloatingChat() {
+            const popup = document.getElementById('chat-popup');
+            popup.classList.add('open');
+            document.getElementById('chat-text-input').focus();
+        }
+
+        function toggleFloatingChat() {
+            const popup = document.getElementById('chat-popup');
+            popup.classList.toggle('open');
+            if (popup.classList.contains('open')) {
+                document.getElementById('chat-text-input').focus();
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                submitChatQuery();
+            }
+        }
+
+        function handleChatChipClick(topicText) {
+            // Remove welcoming chips
+            const chips = document.getElementById('chat-welcome-chips');
+            if (chips) chips.style.display = 'none';
+            
+            // Send selected chip query
+            sendChatUserMessage(topicText);
+            processChatAIResponse(topicText);
+        }
+
+        function submitChatQuery() {
+            const input = document.getElementById('chat-text-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Remove welcome chips if present
+            const chips = document.getElementById('chat-welcome-chips');
+            if (chips) chips.style.display = 'none';
+
+            input.value = "";
+            sendChatUserMessage(message);
+            processChatAIResponse(message);
+        }
+
+        function sendChatUserMessage(text) {
+            const container = document.getElementById('chat-messages');
+            const userBubble = document.createElement('div');
+            userBubble.className = 'chat-bubble bubble-user';
+            userBubble.innerText = text;
+            container.appendChild(userBubble);
+            scrollChatToBottom();
+        }
+
+        async function processChatAIResponse(question) {
+            const container = document.getElementById('chat-messages');
+            
+            // Append Typing Indicator
+            const loaderBubble = document.createElement('div');
+            loaderBubble.className = 'chat-bubble bubble-ai';
+            loaderBubble.id = 'chat-typing-loader';
+            loaderBubble.innerHTML = `
+                <div class="typing-loader" style="padding: 2px 0;">
+                    <div class="dot-bounce"></div>
+                    <div class="dot-bounce"></div>
+                    <div class="dot-bounce"></div>
+                </div>
+            `;
+            container.appendChild(loaderBubble);
+            scrollChatToBottom();
+
+            try {
+                const answer = await callN8nAI(question);
+                
+                // Remove loader
+                const loader = document.getElementById('chat-typing-loader');
+                if (loader) loader.remove();
+                
+                // Append AI Response Bubble
+                const aiBubble = document.createElement('div');
+                aiBubble.className = 'chat-bubble bubble-ai';
+                container.appendChild(aiBubble);
+                scrollChatToBottom();
+
+                // Typing effect inside chat
+                let i = 0;
+                const cursor = document.createElement("span");
+                cursor.className = "typing-cursor";
+                aiBubble.appendChild(cursor);
+                
+                function typeChar() {
+                    if (i < answer.length) {
+                        cursor.insertAdjacentText('beforebegin', answer.charAt(i));
+                        i++;
+                        setTimeout(typeChar, 8);
+                    } else {
+                        cursor.remove();
+                    }
+                    scrollChatToBottom();
+                }
+                typeChar();
+
+                // Log details to history & analytics
+                logInteractionToState(question, answer);
+
+            } catch (err) {
+                const loader = document.getElementById('chat-typing-loader');
+                if (loader) loader.remove();
+
+                const errorBubble = document.createElement('div');
+                errorBubble.className = 'chat-bubble bubble-ai';
+                errorBubble.innerHTML = `<span class="error-message">${err.message}</span>`;
+                container.appendChild(errorBubble);
+                scrollChatToBottom();
+            }
+        }
+
+        function scrollChatToBottom() {
+            const container = document.getElementById('chat-messages');
+            container.scrollTo({
+                top: container.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // ----------------------------------------------------
+        // HISTORY LISTINGS & SEARCH/FILTERS
+        // ----------------------------------------------------
+        function renderHistoryGrid(itemsToRender = state.history) {
+            const container = document.getElementById('history-grid-container');
+            const counter = document.getElementById('history-counter');
+            
+            counter.innerText = `${itemsToRender.length} Saved Records`;
+            container.innerHTML = "";
+
+            if (itemsToRender.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <h4>No history matches found</h4>
+                        <p>Adjust your search text or category filter selection to locate items.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            itemsToRender.forEach(item => {
+                const ratingHtml = getStarsHtml(item.rating);
+                const categoryClass = `badge-${item.category.toLowerCase()}`;
+                
+                const card = document.createElement('div');
+                card.className = 'glass-card history-card';
+                card.innerHTML = `
+                    <div class="history-card-header">
+                        <span class="category-badge ${categoryClass}">
+                            ${getCategoryIcon(item.category)} ${item.category}
+                        </span>
+                        <span class="history-timestamp">${item.timestamp}</span>
+                    </div>
+                    <h4 class="history-question" title="${item.question}">${item.question}</h4>
+                    <p class="history-answer" title="${item.answer}">${item.answer}</p>
+                    <div class="history-card-footer">
+                        <div class="history-stars">
+                            ${ratingHtml}
+                        </div>
+                        <button class="action-btn" onclick="openDetailsModal('${item.id}')" style="width:auto; height:auto; padding: 6px 12px; font-size:11px; font-weight:700; border-radius:12px;">
+                            View Full
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function getCategoryIcon(cat) {
+            switch(cat) {
+                case 'Airport': return '<i class="fa-solid fa-plane-arrival"></i>';
+                case 'Vehicles': return '<i class="fa-solid fa-car"></i>';
+                case 'Booking': return '<i class="fa-solid fa-calendar-check"></i>';
+                case 'Packages': return '<i class="fa-solid fa-map-location-dot"></i>';
+                case 'Payment': return '<i class="fa-solid fa-wallet"></i>';
+                case 'Support': return '<i class="fa-solid fa-headset"></i>';
+                default: return '<i class="fa-solid fa-circle-question"></i>';
+            }
+        }
+
+        function getStarsHtml(rating) {
+            if (rating === null) {
+                return `
+                    <i class="fa-solid fa-star empty"></i>
+                    <i class="fa-solid fa-star empty"></i>
+                    <i class="fa-solid fa-star empty"></i>
+                    <i class="fa-solid fa-star empty"></i>
+                    <i class="fa-solid fa-star empty"></i>
+                `;
+            }
+            let stars = "";
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<i class="fa-solid fa-star"></i>';
+                } else {
+                    stars += '<i class="fa-solid fa-star empty"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function filterHistory() {
+            const query = document.getElementById('history-search-input').value.toLowerCase();
+            const cat = document.getElementById('history-category-filter').value;
+            
+            const filtered = state.history.filter(item => {
+                const matchesSearch = item.question.toLowerCase().includes(query) || item.answer.toLowerCase().includes(query);
+                const matchesCategory = (cat === 'All' || item.category === cat);
+                return matchesSearch && matchesCategory;
+            });
+
+            renderHistoryGrid(filtered);
+        }
+
+        // Mini Details Modal simulation helper
+        function openDetailsModal(id) {
+            const item = state.history.find(h => h.id === parseInt(id));
+            if (!item) return;
+            
+            // Build modal dynamically in body
+            const modalOverlay = document.createElement('div');
+            modalOverlay.id = 'details-modal-overlay';
+            modalOverlay.style.cssText = `
+                position: fixed; top:0; left:0; width:100vw; height:100vh;
+                background: rgba(15,41,82,0.4); backdrop-filter: blur(8px);
+                display: flex; align-items:center; justify-content:center;
+                z-index: 2000; opacity: 0; transition: opacity 0.3s ease;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'glass-card';
+            modalContent.style.cssText = `
+                max-width: 600px; width: 90%; background: #ffffff;
+                border: 1px solid rgba(24,95,165,0.2); border-radius:24px;
+                padding: 30px; box-shadow: 0 20px 50px rgba(15,41,82,0.15);
+                transform: translateY(20px); transition: transform 0.3s ease;
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E2E8F0; padding-bottom:14px; margin-bottom:16px;">
+                    <span class="category-badge badge-${item.category.toLowerCase()}">${getCategoryIcon(item.category)} ${item.category}</span>
+                    <span style="font-size:12px; color:var(--text-light); font-weight:500;">${item.timestamp}</span>
+                </div>
+                <h3 style="font-family:var(--font-sora); color:var(--dark-navy); margin-bottom:16px; font-size:18px; line-height:1.4;">${item.question}</h3>
+                <div style="font-size:14px; line-height:1.6; color:var(--text-main); white-space:pre-wrap; max-height: 250px; overflow-y:auto; padding-right:8px; margin-bottom:20px;">${item.answer}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid #E2E8F0; padding-top:16px;">
+                    <div style="display:flex; align-items:center; gap:6px;">
+                        <span style="font-size:12px; font-weight:700; color:var(--text-muted);">Rating:</span>
+                        <div class="history-stars">${getStarsHtml(item.rating)}</div>
+                    </div>
+                    <button class="gradient-btn" id="modal-close-btn" style="padding: 8px 20px; font-size:13px; border-radius:15px;">Close</button>
+                </div>
+            `;
+            
+            modalOverlay.appendChild(modalContent);
+            document.body.appendChild(modalOverlay);
+            
+            // Animation triggers
+            setTimeout(() => {
+                modalOverlay.style.opacity = '1';
+                modalContent.style.transform = 'translateY(0)';
+            }, 50);
+
+            const closeModal = () => {
+                modalOverlay.style.opacity = '0';
+                modalContent.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    modalOverlay.remove();
+                }, 300);
+            };
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+            modalContent.querySelector('#modal-close-btn').addEventListener('click', closeModal);
+        }
+
+        // ----------------------------------------------------
+        // ANALYTICS INTEGRATIONS (CHART.JS)
+        // ----------------------------------------------------
+        function updateAnalyticsStats() {
+            // Total questions counter
+            const total = state.history.length;
+            document.getElementById('stat-total-questions').innerText = total;
+
+            // Average star ratings recalculation
+            const ratedItems = state.history.filter(h => h.rating !== null);
+            if (ratedItems.length > 0) {
+                const sum = ratedItems.reduce((acc, curr) => acc + curr.rating, 0);
+                const avg = (sum / ratedItems.length).toFixed(1);
+                document.getElementById('stat-avg-rating').innerText = `${avg}★`;
+            } else {
+                document.getElementById('stat-avg-rating').innerText = "0.0★";
+            }
+        }
+
+        function renderActivityFeed() {
+            const container = document.getElementById('activity-feed-container');
+            container.innerHTML = "";
+
+            state.activity.forEach(act => {
+                const icon = act.type === 'rating' ? 'fa-star' : 'fa-magnifying-glass';
+                const colorClass = act.type === 'rating' ? 'color:#F59E0B;' : 'color:var(--primary);';
+                
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                item.innerHTML = `
+                    <div class="activity-dot-wrapper">
+                        <i class="fa-solid ${icon}" style="${colorClass}"></i>
+                    </div>
+                    <div class="activity-item-content">
+                        <div class="activity-item-desc">${act.text}</div>
+                        <div class="activity-item-time">${act.time}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function initCharts() {
+            // LINE CHART CONFIG
+            const lineCtx = document.getElementById('line-chart-volume').getContext('2d');
+            
+            // Build dynamic last 7 days dates labels
+            const getDaysLabel = () => {
+                const labels = [];
+                const options = { weekday: 'short', day: 'numeric' };
+                for (let i = 6; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    labels.push(date.toLocaleDateString('en-US', options));
+                }
+                return labels;
+            };
+
+            lineChart = new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: getDaysLabel(),
+                    datasets: [{
+                        label: 'Questions Asked',
+                        data: dailyQuestions,
+                        backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                        borderColor: '#185FA5',
+                        borderWidth: 2.5,
+                        tension: 0.35,
+                        fill: true,
+                        pointBackgroundColor: '#0EA5E9',
+                        pointBorderColor: '#fff',
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.03)' },
+                            ticks: { precision: 0 }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // DOUGHNUT CHART CONFIG
+            const doughnutCtx = document.getElementById('doughnut-chart-categories').getContext('2d');
+            
+            // Initial counts
+            const counts = getCategoryCounts();
+
+            doughnutChart = new Chart(doughnutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Airport', 'Vehicles', 'Booking', 'Packages', 'Payment', 'Support', 'General'],
+                    datasets: [{
+                        data: [
+                            counts.Airport,
+                            counts.Vehicles,
+                            counts.Booking,
+                            counts.Packages,
+                            counts.Payment,
+                            counts.Support,
+                            counts.General
+                        ],
+                        backgroundColor: [
+                            '#0EA5E9', // Airport - cyan
+                            '#10B981', // Vehicles - emerald
+                            '#6366F1', // Booking - indigo
+                            '#F59E0B', // Packages - amber
+                            '#8B5CF6', // Payment - purple
+                            '#F43F5E', // Support - rose
+                            '#64748B'  // General - slate
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11, family: 'DM Sans' },
+                                boxWidth: 10
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        function getCategoryCounts() {
+            const counts = { Airport:0, Vehicles:0, Booking:0, Packages:0, Payment:0, Support:0, General:0 };
+            state.history.forEach(h => {
+                if (counts[h.category] !== undefined) {
+                    counts[h.category]++;
+                } else {
+                    counts.General++;
+                }
+            });
+            return counts;
+        }
+
+        // Live charts update triggers
+        function updateChartData(newCategory) {
+            if (!lineChart || !doughnutChart) return;
+            
+            // Update Line chart (increase last day index by 1)
+            lineChart.data.datasets[0].data = dailyQuestions;
+            lineChart.update();
+
+            // Update Doughnut chart category allocation
+            const counts = getCategoryCounts();
+            doughnutChart.data.datasets[0].data = [
+                counts.Airport,
+                counts.Vehicles,
+                counts.Booking,
+                counts.Packages,
+                counts.Payment,
+                counts.Support,
+                counts.General
+            ];
+            doughnutChart.update();
+        }
+    </script>
+</body>
+</html>
